@@ -40,18 +40,18 @@ Development, API's
 ### Experience
 **IT Team at Teras Kaca**\
 2020-2021\
-Gunungkidul - DIY\
+Gunungkidul - DIY
 > Teraskaca adalah salah satu destinasi wisata Jogja yang berada di Pangang,Gunungkidul, Disini saya sebagai team it yang memegang website teras kaca dan juga membuat design yang diperlukan di teraskaca.
 
 **ANDROID DEVELOPER**\
 2018-2019|Jaringan Kios Rakyat\
-Gusdurian - DIY\
+Gusdurian - DIY
 > Ini adalah sebuah proyek dari Jaringan Kios Rakyat untuk membuat Aplikasi E- Commerce yang diperuntukan khusus untuk warung atau kios-kios kecil yang dibimbing secara langsung oleh JKR, Saya disini berperan sebagai Developer untuk aplikasi G-Mart
 konsumen berbasis mobile.
 
 **INTERNSHIP AT GLOBAL INTERMEDIA**\
 July s/d Agustus 2018|Global Intermedia\
-Global Intermedia - Tamansiswa,DIY\
+Global Intermedia - Tamansiswa,DIY
 > Global Intermedia adalah suatu perusahaan Sometown, NC softwarehouse di Yogyakarta, saya magang
 selama 2 bulan disini dan mendapatkan proyek untuk membuat aplikasi deteksi plat
 nomor dan deteksi ukuran dimensi 2D melewati kamera smartphone.
