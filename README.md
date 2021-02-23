@@ -10,7 +10,7 @@ Birth Place : Serang, Banten
 ### Contact
 - Alamat : Mulungan Wetan no 22, Mlati, Sleman, DIY
 - phone : +62 851 5674 0641 
-- Email : [irsyadk4@gmai.com](irsyadk4@gmail.com)
+- Email : [irsyadk4@gmail.com](irsyadk4@gmail.com)
 
 ### Interest
 - Games
