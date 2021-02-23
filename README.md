@@ -2,9 +2,9 @@
 ## Front-End Developer
 ### About Me
 
-Date of Birth : 15 August 1998
-Age : 22
-Gender : Male
+Date of Birth : 15 August 1998\
+Age : 22\
+Gender : Male\
 Birth Place : Serang, Banten
 
 ### Contact
