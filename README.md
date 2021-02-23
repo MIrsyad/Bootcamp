@@ -26,7 +26,7 @@ Bisa bekerja dengan perusahaan yang mendukung saya untuk berkembang, meningkatka
 ### Education
 **Diploma III**\
 Komputer dan Sistem Informasi\
-Universitas Gadjah Mada\
+Universitas Gadjah Mada
 
 ### Technical Proficiencies
 JavaScript, JQuery, HTML, HTML5, CSS, Web
