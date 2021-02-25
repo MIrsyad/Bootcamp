@@ -1,3 +1,5 @@
+class Log{
+    static printLog(){
     var d = new Date();
     var yy = d.getFullYear();
     var mm = d.getMonth();
@@ -14,3 +16,7 @@
     console.log(`[${string}]`,"ALERT: Achtung! Achtung!.");
     console.log(`[${string}]`,"CRITICAL: Medic!! We've got critical damages.");
     console.log(`[${string}]`,"EMERGENCY: System  hung. Contact system administrator immediately!.");
+    }
+}
+
+Log.printLog();
