@@ -87,25 +87,25 @@ class Cart{
 
     addItem({id, harga, jumlah}){
         this.item.push({id, harga, jumlah})
+
+        return this
     }
 
     removeItem(removeid){
         for (let index = 0; index < this.item.length; index++) {
-            if(this.item[index].id === "removeid"){
+            if(this.item[index]["id"] == removeid){
                 this.item.splice(index,1);
+                console.log(`removed ${index}`);
                 break;  
             }
         }
-        // this.item.forEach(element => {
-        //     if(this.item[element].id === "removeid"){
-        //         this.item.splice(element,1);
-        //         break;  
-        //     }
-        // });
+        return this
     }
 
     setDiscount(settedDiscount){
         this.discount=settedDiscount;
+        
+        return this
     }
 
     totalItem(){
@@ -117,15 +117,23 @@ class Cart{
     }
 
     totalHarga(){
-        let total =  this.item.reduce((a, b) => ({jumlah: (a.jumlah*harga) + (b.jumlah*harga)}));
+        // let total =  this.item.reduce((a, b) => ({harga: (a.jumlah*a.harga) + (b.jumlah*b.harga)}));
+        let total=0;
+        for (let index = 0; index < this.item.length; index++) {
+            total += this.item[index]["harga"]*this.item[index]["jumlah"];
+        }
         total = total - this.discount;
         return total
     }
 }
 
 let cart = new Cart()
-.addItem({id:1, price:20000 , quantity:3})
-.addItem({id:2 , price:1000 , quantity:5})
-.addItem({id:3 , price:1000 , quantity:5})
-.removeItem({id:1})
+.addItem({id:1, harga:20000 , jumlah:3})
+.addItem({id:2 , harga:1000 , jumlah:5})
+.addItem({id:3 , harga:1000 , jumlah:5})
+.removeItem(1)
 .setDiscount(3000)
+
+console.log(cart.totalItem());
+console.log(cart.totalQuantity());
+console.log(cart.totalHarga());
