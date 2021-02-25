@@ -89,7 +89,43 @@ class Cart{
         this.item.push({id, harga, jumlah})
     }
 
-    removeItem(){
-        
+    removeItem(removeid){
+        for (let index = 0; index < this.item.length; index++) {
+            if(this.item[index].id === "removeid"){
+                this.item.splice(index,1);
+                break;  
+            }
+        }
+        // this.item.forEach(element => {
+        //     if(this.item[element].id === "removeid"){
+        //         this.item.splice(element,1);
+        //         break;  
+        //     }
+        // });
+    }
+
+    setDiscount(settedDiscount){
+        this.discount=settedDiscount;
+    }
+
+    totalItem(){
+        return this.item.length;
+    }
+
+    totalQuantity(){
+        return this.item.reduce((a, b) => ({jumlah: a.jumlah + b.jumlah}));
+    }
+
+    totalHarga(){
+        let total =  this.item.reduce((a, b) => ({jumlah: (a.jumlah*harga) + (b.jumlah*harga)}));
+        total = total - this.discount;
+        return total
     }
 }
+
+let cart = new Cart()
+.addItem({id:1, price:20000 , quantity:3})
+.addItem({id:2 , price:1000 , quantity:5})
+.addItem({id:3 , price:1000 , quantity:5})
+.removeItem({id:1})
+.setDiscount(3000)
