@@ -10,13 +10,12 @@ class Log{
 
 	displayTitle()
 	{
-        let message = `${this.data.title}`
+        let message = `${this.data.title}\r\n`
 		return message;
 	}
 
     displaySinopsis(){
-        let message = `Sinopsis \r\n 
-        ${this.data.overview}
+        let message = `Sinopsis \r\n${this.data.overview}
         `
         return message
     }
@@ -26,9 +25,7 @@ class Log{
     }
 
     print(){
-        let message = `${this.displayTitle()}\r\n
-        ${this.displaySinopsis()}
-        `
+        let message = `${this.displayTitle()}\r\n${this.displaySinopsis()}`
         console.log(message);
     }
 }
