@@ -2,33 +2,25 @@ const axios = require('axios').default;
 const url1 ='https://jsonplaceholder.typicode.com/posts';
 const url2 = 'https://jsonplaceholder.typicode.com/users';
 
-function getUserPost() {
-    return  axios.get(url1);
+async function getUserPost() {
+    return await axios.get(url1);
 }
 
-function getUserAccounts() {
-    return  axios.get(url2);
+async function getUserAccounts() {
+    return await axios.get(url2);
 }
 
 async function getData() {
-    let result = [];
-    try {
-      const userAccount = await getUserAccounts();
-      const userPost = await getUserPost();
-      console.log("pengambilan data berhasil");
-      console.log(userPost);
+    const userAccounts = await getUserAccounts().then((response) => response.data);
+    const userPost = await getUserPost().then((response) => response.data);
+    console.log("pengambilan data berhasil");
 
-      for (let index = 0; index < userPost.data.length; index++) {
-        for (let indexx = 0; indexx < userAccount.data.length; indexx++) {
-            if(userPost.data[index].userId==userAccount.data[indexx].id){
-                console.log(`match at ${indexx+1}`);
-                Object.assign(userPost.data[index],{'user':userAccount.data[indexx]})
-                console.log(userPost.data[index]);
-            }   
-        }
-    }
-    } catch (error) {
-      console.error(error);
-    } 
+    const newPost = userPost.map((e) => {
+        const userAccount = userAccounts.find((u) => u.id === e.userId);
+        e.username = userAccount.username;
+        return e
+    })
+
+    console.log({userPost});
 }
-getData();
+getData()

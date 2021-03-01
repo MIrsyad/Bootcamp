@@ -5,7 +5,7 @@ function getData(callback){
     const data = axios.get(url)
     .then(function (result) {
         //handle resolve
-        const data = result;
+        const data = result.data;
         callback(data);
     })
     .catch(function (error) {
@@ -18,89 +18,63 @@ function getData(callback){
 function findHigherThanSalary(returnedData){
     console.log('======================Number One======================');
     const data = returnedData;
-    for (let index = 0; index < data.data.length; index++) {
-        const element = data.data[index];
-        let salary = element.salary;
-        if (salary > 15000000) {
-            console.log(element);
-        }
-    }
+
+    let higherSalary = data.filter(match => match.salary > 1500000)
+    console.log(higherSalary);
 }
 
 function findLive(returnedData){
     console.log('======================Number two======================');
     const data = returnedData;
-    for (let index = 0; index < data.data.length; index++) {
-        const element = data.data[index];
-        for (let indexx = 0; indexx < element.addresses.length; indexx++) {
-            let tempatTinggal = element.addresses[indexx].city;
-            if (tempatTinggal === `DKI Jakarta`) {
-                console.log(element);
-        }
-        }
-    }
+
+    let findLive = data.filter((match) => {
+        let foundJakarta = false
+
+        const thatLifeOn = match.addresses.filter((f2) => {
+            return f2.city==='DKI Jakarta'? foundJakarta=true: null;
+        })
+
+        console.log({def: foundJakarta});
+        return foundJakarta? match : null
+    })
+    console.log({findLive}); //bedanya menggunakan {} dan tidak apa?
     }
 
 function findBirthday(returnedData){
     console.log('======================Number three======================');
     const data = returnedData;
-    console.log(`trying to find data match`);
-    
-    let isFound = false;
-    for (let index = 0; index < data.data.length; index++) {
-        const element = data.data[index].birthday;
-        // console.log(element.slice(5,7));
-        if (element.slice(5,7) === `03`) {
-            isFound = true;
-            console.log(data.data[index]);
-        }else if (index === data.data.length-1 && isFound === false) {
-            console.log("tidak ditemukan data user yang lahir di bulan march");
-        }
-    }
+
+    let foundBirthday = data.filter(match => match.birthday.slice(5,7)=== '03')
+    console.log(foundBirthday);
     }
 
 function findDepartment(returnedData) {
     console.log('======================Number four======================');
     const data = returnedData;
 
-    let isFound = false;
-    for (let index = 0; index < data.data.length; index++) {
-        const element = data.data[index];
-        const department = element.department.name;
-        if (department === `Research and development`) {
-            isFound = true;
-            console.log(element);
-        }else if (index === data.data.length-1 && isFound === false) {
-            console.log("tidak ditemukan data user yang berada di research and development");
-        }
-    }
+    let findDepartment = data.filter(match => match.department.name =='Research and development')
+    return findDepartment
 }
 
 function countAbssences(returnedData) {
     console.log('======================Number five======================');
     const data = returnedData;
-    let counted=[];
-    for (let index = 0; index < data.data.length; index++) {
-        const element = data.data[index];
-        const abssence_list = element.presence_list;
-        let count=0;
-        abssence_list.forEach(element => {
-            let bulanAbsen = element.slice(5,7);
-            if (bulanAbsen == 10) {
-                count ++;
-            }
-        });
-        counted.push({userid:index, jumlahMasuk:count});
-    }
-    for (let index = 0; index < counted.length; index++) {
-        const element = counted[index];
-        console.log(element);
-    }
+
+    let countbulan = data.map(c => {
+        let match = c.presence_list.filter((f) => {
+            return f.slice(5,7) == '10'
+            })
+        
+        c.absenOktober = match.length
+        return c
+    })
+    // console.log(c);
+    console.log(countbulan);
    }
 
-getData(findHigherThanSalary);
-getData(findLive);
-getData(findBirthday);
-getData(findDepartment);
-getData(countAbssences)
-
+// getData(findHigherThanSalary);
+// getData(findLive)
+// getData(findLive);
+// getData(findBirthday);
+// getData(findDepartment);
+// getData(countAbssences)
