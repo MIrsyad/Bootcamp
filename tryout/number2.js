@@ -38,7 +38,7 @@ async function getData() {
 async function getLatestData() {
     const response =await axios.get(`https://api.themoviedb.org/3/movie/latest?api_key=97e70e21ef827be79d195c0c25d57542&language=en-US`)
     const data = response.data
-    return data
+    return datax    
 }
 
 async function main() {

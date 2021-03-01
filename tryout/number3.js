@@ -40,26 +40,33 @@ class Fetcher{
 
 let log=[]
 class Log{
-    constructor(data)
+    constructor(dataMovie)
 	{
-        this.data = data
+        this.dataMovie = dataMovie
+        console.log('ini berhasil di cons movie');
+	}
+
+    constructor(getJsonResponse, deleteJsonResponse, postJsonResponse, putJsonResponse, patchJsonResponse)
+	{
+        this.getJsonResponse=getJsonResponse
+        console.log('ini berhasil di cons Json');
+        this.deleteJsonResponse=deleteJsonResponse
+        this.postJsonResponse=postJsonResponse
+        this.putJsonResponse=putJsonResponse
+        this.Patch=patchJsonResponse
 	}
 
 
 	displayTitle()
 	{
-        let message = `${this.data.title}\r\n`
+        let message = `${this.dataMovie.title}\r\n`
 		return message;
 	}
 
     displaySinopsis(){
-        let message = `Sinopsis \r\n${this.data.overview}
+        let message = `Sinopsis \r\n${this.dataMovie.overview}
         `
         return message
-    }
-
-    displayProduction(){
-        
     }
 
     print(){
@@ -68,10 +75,10 @@ class Log{
     }
 }
 
-async function getData() {
-    const response =await axios.get(`https://api.themoviedb.org/3/tv/airing_today?api_key=97e70e21ef827be79d195c0c25d57542&language=en-US&page=2`)
-    return response.data
-}
+// async function getData() {
+//     const response =await axios.get(`https://api.themoviedb.org/3/tv/airing_today?api_key=97e70e21ef827be79d195c0c25d57542&language=en-US&page=2`)
+//     return response.data
+// }
 
 async function getLatestData() {
     const response =await axios.get(`https://api.themoviedb.org/3/movie/latest?api_key=97e70e21ef827be79d195c0c25d57542&language=en-US`)
@@ -80,31 +87,38 @@ async function getLatestData() {
 }
 
 const fetcher = new Fetcher()
-async function mainJson() {
-var getJsonResponse = await fetcher.Get('https://httpbin.org/get')
-var deleteJsonResponse = await fetcher.Delete('https://httpbin.org/delete')
-var postJsonResponse = await fetcher.Post('https://httpbin.org/post',jsonData)
-var putJsonResponse = await fetcher.Put('https://httpbin.org/put',jsonData)
-var patchJsonResponse = await fetcher.Patch('https://httpbin.org/patch',jsonData)
+// async function mainJson() {
+// var getJsonResponse = await fetcher.Get('https://httpbin.org/get')
+// var deleteJsonResponse = await fetcher.Delete('https://httpbin.org/delete')
+// var postJsonResponse = await fetcher.Post('https://httpbin.org/post',jsonData)
+// var putJsonResponse = await fetcher.Put('https://httpbin.org/put',jsonData)
+// var patchJsonResponse = await fetcher.Patch('https://httpbin.org/patch',jsonData)
 
-console.log('========get Json=========');
-console.log(getJsonResponse);
-console.log('========delete Json=========');
-console.log(deleteJsonResponse);
-console.log('========post Json=========');
-console.log(postJsonResponse);
-console.log('========put Json=========');
-console.log(putJsonResponse);
-console.log('========patch Json=========');
-console.log(patchJsonResponse);
-}
+// console.log('========get Json=========');
+// console.log(getJsonResponse);
+// console.log('========delete Json=========');
+// console.log(deleteJsonResponse);
+// console.log('========post Json=========');
+// console.log(postJsonResponse);
+// console.log('========put Json=========');
+// console.log(putJsonResponse);
+// console.log('========patch Json=========');
+// console.log(patchJsonResponse);
+// }
 
-async function mainMovie() {
-    const data = await getData()
-    const latest = await getLatestData()
-    const log = new Log(latest)
-    log.print()
+async function main() {
+    var getJsonResponse = await fetcher.Get('https://httpbin.org/get')
+    var deleteJsonResponse = await fetcher.Delete('https://httpbin.org/delete')
+    var postJsonResponse = await fetcher.Post('https://httpbin.org/post',jsonData)
+    var putJsonResponse = await fetcher.Put('https://httpbin.org/put',jsonData)
+    var patchJsonResponse = await fetcher.Patch('https://httpbin.org/patch',jsonData)
+
+    const latestMovie = await getLatestData()
+    const logMovie = new Log(latestMovie)
+    const logJson = new Log(getJsonResponse, deleteJsonResponse, postJsonResponse, putJsonResponse, patchJsonResponse)
+    
+
+    // logMovie.print()
 }   
 
-mainJson()
-mainMovie()
+main()
