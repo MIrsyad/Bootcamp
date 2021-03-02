@@ -43,17 +43,23 @@ function findLive(returnedData){
 function findBirthday(returnedData){
     console.log('======================Number three======================');
     const data = returnedData;
-
-    let foundBirthday = data.filter(match => match.birthday.slice(5,7)=== '03')
-    console.log(foundBirthday);
+    let isFound=false
+    let foundBirthday = data.filter((match) =>{ 
+        let m = match.birthday.slice(5,7)=== '03'? isFound = true : null;
+        return m
+    })
+    return isFound? foundBirthday : console.log('tidak ketemu data yang lahir di bulan march');;
     }
 
 function findDepartment(returnedData) {
     console.log('======================Number four======================');
     const data = returnedData;
+    let finddepartment = data.filter((match) => {
+        let m = match.department.name === 'Research and development'
+        return m
+    })
 
-    let findDepartment = data.filter(match => match.department.name =='Research and development')
-    return findDepartment
+    console.log(finddepartment);
 }
 
 function countAbssences(returnedData) {
@@ -73,7 +79,6 @@ function countAbssences(returnedData) {
    }
 
 // getData(findHigherThanSalary);
-// getData(findLive)
 // getData(findLive);
 // getData(findBirthday);
 // getData(findDepartment);
