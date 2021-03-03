@@ -6,35 +6,34 @@ const databases = fs.readFileSync('./index.json');
 const obj = JSON.parse(databases);
 
 // file: hello-world.js (make the file executable using `chmod +x hello.js`)
-
 // Caporal provides you with a program instance
 const { program } = require("@caporal/core")
 
-// Simplest program ever: this program does only one thing
 program
 .command("list", "show to do list")
 .action(({logger}) => {
     obj.forEach(element => {
-        logger.info(`${element.id}. ${element.message}`)
+        if (element.status == '') {
+            logger.info(`${element.id}. ${element.message}`)
+        } else {
+            logger.info(`${element.id}. ${element.message} (${element.status})`)
+        }
     });
 })
 .command("add", "Adding new item list")
-.argument("<id>", "Id of the list item")
 .argument("<Message>", "The message list you want to remember")
 .action(({args}) => {
     const {id, message} = args;
-    const isIdFound = obj.some(element => element.id == id)
+    let lastId = obj[obj.length-1].id
     if (databases==null) {
-        let string = [{id, message}];
+        let string = [{id: 1, message, status: ''}];
         let myJson = JSON.stringify(string)
         fs.writeFile('index.json', myJson, (err) => {
             if (err) throw err ;
             console.log('saved new file!');
         })
-    } else if(isIdFound){
-        console.log("the id number already used");
-    }else{
-        obj.push({id: id,message: message})
+    } else{
+        obj.push({id: lastId+1,message: message, status: ''})
         let myJson = JSON.stringify(obj)
         fs.writeFile('index.json', myJson, (err) => {
             if (err) throw err ;
