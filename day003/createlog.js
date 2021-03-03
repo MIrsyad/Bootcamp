@@ -1,4 +1,7 @@
 class Log{
+    constructor(date, level, message){
+        
+    }
     static printLog(){
     var d = new Date();
     var yy = d.getFullYear();

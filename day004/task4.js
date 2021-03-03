@@ -78,8 +78,8 @@ function countAbssences(returnedData) {
     console.log(countbulan);
    }
 
-// getData(findHigherThanSalary);
-// getData(findLive);
-// getData(findBirthday);
-// getData(findDepartment);
-// getData(countAbssences)
+getData(findHigherThanSalary);
+getData(findLive);
+getData(findBirthday);
+getData(findDepartment);
+getData(countAbssences)

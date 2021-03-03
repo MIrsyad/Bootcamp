@@ -1,0 +1,15 @@
+{
+  "name": "cliapp",
+  "version": "1.0.0",
+  "description": "Mencoba aplikasi CLI",
+  "main": "test.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "irsyad",
+  "license": "ISC",
+  "dependencies": {
+    "@caporal/core": "^2.0.2",
+    "caporal": "^1.4.0"
+  }
+}
