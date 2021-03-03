@@ -23,9 +23,8 @@ program
 .command("add", "Adding new item list")
 .argument("<Message>", "The message list you want to remember")
 .action(({args}) => {
-    const {id, message} = args;
-    let lastId = obj[obj.length-1].id
-    if (databases==null) {
+    const {message} = args;
+    if (obj.length==0) {
         let string = [{id: 1, message, status: ''}];
         let myJson = JSON.stringify(string)
         fs.writeFile('index.json', myJson, (err) => {
@@ -33,6 +32,7 @@ program
             console.log('saved new file!');
         })
     } else{
+        let lastId = obj[obj.length-1].id
         obj.push({id: lastId+1,message: message, status: ''})
         let myJson = JSON.stringify(obj)
         fs.writeFile('index.json', myJson, (err) => {
@@ -49,8 +49,7 @@ program
     const isIdFound = obj.some(element => element.id == id)
     if (isIdFound) {
         const indexfound= obj.findIndex(element => element.id == id)
-        obj[indexfound] = {id, message}
-        console.log(obj);
+        obj[indexfound] = {id, message, status: obj[indexfound].status}
         let myJson = JSON.stringify(obj)
         fs.writeFile('index.json', myJson, (err) => {
             if(err) throw err;
@@ -93,7 +92,6 @@ program
     if (isIdFound) {
         const indexfound= obj.findIndex(element => element.id == id)
         obj[indexfound].status='done'
-        console.log(obj);
         let myJson = JSON.stringify(obj)
         fs.writeFile('index.json', myJson, (err) => {
             if(err) throw err;
@@ -109,8 +107,7 @@ program
     const isIdFound = obj.some(element => element.id == id)
     if (isIdFound) {
         const indexfound= obj.findIndex(element => element.id == id)
-        obj[indexfound].status='0'
-        console.log(obj);
+        obj[indexfound].status=''
         let myJson = JSON.stringify(obj)
         fs.writeFile('index.json', myJson, (err) => {
             if(err) throw err;
