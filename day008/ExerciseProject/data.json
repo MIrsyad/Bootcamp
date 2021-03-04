@@ -1,0 +1,1 @@
+{ "name": "Refactory", "address": { "hometown": "rejodani", "city": "sleman", "provins": "Yogyakarta" }, "birth": { "day": 31, "month": "februari", "year": 2021 }, "jobs": [ { "title": "Enginer", "tech": "React Native" }, { "title": "Trainer", "tech": "Mobile , Backend" } ], "old": 30 }
