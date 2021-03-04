@@ -13,7 +13,9 @@ program
 .command("list", "show to do list")
 .action(({logger}) => {
     obj.forEach(element => {
-        if (element.status == '') {
+        if (element.deleted == true) {
+            
+        } else if (element.status == '') {
             logger.info(`${element.id}. ${element.message}`)
         } else {
             logger.info(`${element.id}. ${element.message} (${element.status})`)
@@ -25,7 +27,7 @@ program
 .action(({args}) => {
     const {message} = args;
     if (obj.length==0) {
-        let string = [{id: 1, message, status: ''}];
+        let string = [{id: 1, message, status: '', deleted: false}];
         let myJson = JSON.stringify(string)
         fs.writeFile('index.json', myJson, (err) => {
             if (err) throw err ;
@@ -33,7 +35,7 @@ program
         })
     } else{
         let lastId = obj[obj.length-1].id
-        obj.push({id: lastId+1,message: message, status: ''})
+        obj.push({id: lastId+1,message: message, status: '', deleted: false})
         let myJson = JSON.stringify(obj)
         fs.writeFile('index.json', myJson, (err) => {
             if (err) throw err ;
@@ -49,7 +51,7 @@ program
     const isIdFound = obj.some(element => element.id == id)
     if (isIdFound) {
         const indexfound= obj.findIndex(element => element.id == id)
-        obj[indexfound] = {id, message, status: obj[indexfound].status}
+        obj[indexfound] = {id, message, status: obj[indexfound].status, deleted: obj[indexfound]}
         let myJson = JSON.stringify(obj)
         fs.writeFile('index.json', myJson, (err) => {
             if(err) throw err;
@@ -66,7 +68,7 @@ program
     const isIdFound = obj.some(element => element.id == id)
     if (isIdFound) {
         const indexfound= obj.findIndex(element => element.id == id)
-        obj.splice(indexfound, 1)
+        obj[indexfound].deleted=true
         let myJson = JSON.stringify(obj)
         fs.writeFile('index.json', myJson, (err) => {
             if(err) throw err;
@@ -91,11 +93,15 @@ program
     const isIdFound = obj.some(element => element.id == id)
     if (isIdFound) {
         const indexfound= obj.findIndex(element => element.id == id)
-        obj[indexfound].status='done'
-        let myJson = JSON.stringify(obj)
-        fs.writeFile('index.json', myJson, (err) => {
-            if(err) throw err;
+        if (obj[indexfound].deleted == false) {
+            obj[indexfound].status='done'
+            let myJson = JSON.stringify(obj)
+            fs.writeFile('index.json', myJson, (err) => {
+                if(err) throw err;
         })
+        } else {
+            console.log("list sudah deleted");
+        }
     } else {
         console.log(`tidak ditemukan data dengan id ${id}`);
     }
