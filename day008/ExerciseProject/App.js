@@ -3,9 +3,9 @@ import { Text, View, StyleSheet } from 'react-native';
 import data from './data.json';
 
 function getNama() {
-  let nama = data.name
+  let nama = data['name']
   return(
-    <Text>{ nama }</Text>
+    <Text>{ nama }{"\n"}</Text>
 );
 }
 
@@ -17,6 +17,13 @@ function getPekerjaan() {
     })}
   </Text>
 );
+}
+
+function getBirth() {
+  let birth = data.birth;
+  return(
+    <Text>{birth.day}-{birth.month}-{birth.year}</Text>
+  )
 }
 
 function getAlamat() {
@@ -33,7 +40,10 @@ const YourApp = () => {
         <Text>Nama</Text>
         <Text style={styles.lineStyle}></Text>
         {getNama()}
-        <Text></Text>
+
+        <Text>Tanggal lahir</Text>
+        <Text style={styles.lineStyle}></Text>
+        <Text style={styles.rightAlignStyle}>{getBirth()}</Text>
 
         <Text>Pekerjaan</Text>
         <Text style={styles.lineStyle}></Text>
@@ -54,7 +64,7 @@ const styles = StyleSheet.create({
   
    },
    rightAlignStyle:{
-    textAlign:'right'   
+    alignSelf:'flex-end'  
    }
  });
 export default YourApp;
