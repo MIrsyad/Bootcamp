@@ -1,101 +1,75 @@
-import React from 'react'
-import { StyleSheet, Text, View, FlatList } from 'react-native'
+import React, {useState} from 'react'
+import { StyleSheet, Text, View, FlatList, TouchableOpacity, Button, TextInput } from 'react-native'
 import LinearGradient from 'react-native-linear-gradient';
 
-let data =[{"id":1,"message":"Kerjain tugas","status":"","deleted":false},{"id":2,"message":"besok try out","status":"","deleted":true},{"id":3,"message":"jangan lupa berdoa","status":"done","deleted":false}]
-
-const Item = ({id,message}) => (
-  <View style={styles.item}>
-    <Text >{id}. {message}</Text>
-  </View>
-);
+const Item = ({item, onPress}) => (
+  <TouchableOpacity onPress={onPress} style={[styles.item]}>
+    <Text >{item.id}. {item.message}</Text>
+  </TouchableOpacity>
+)
 
 const Header = ({title}) => (
   <View>
     <Text style={styles.header}>{title}</Text>
   </View>
-);  
+); 
 
-const ItemDeleted = ({id,message}) => (
-  <View style={styles.item}>  
-    <Text >{id}. {message}</Text>
-  </View>
-);
-function list(){
-  data.forEach(element => {
-    if (element.deleted ==true) {
-      
-    } else if (element.status =='') {
-      return <Text>{element.id} {element.message}</Text>
-    }else {
-      return <Text>{element.id} {element.message} {element.status}</Text>
-    }
-  })
-}
-
-function add(m){
-  if (data.length==0) {
-    const string = [{id: 1, message: m, status: '', deleted: false}];
-    data.push(string)
-} else{
-    const lastId = data[data.length-1].id
-    data.push({id: lastId+1,message: m, status: '', deleted: false})
-}
-}
-
-function update(i, m) {
-  const isIdFound = data.some(element => element.id == i)
-    if (isIdFound) {
-        const indexfound= data.findIndex(element => element.id == i)
-        data[indexfound] = {id: i, message: m, status: data[indexfound].status, deleted: data[indexfound].deleted}
-    } else {
-        console.log(`tidak ditemukan data dengan id ${i}`);
-    }
-}
-
-function del(i) {
-  const isIdFound = data.some(element => element.id == i)
-    if (isIdFound) {
-        const indexfound= data.findIndex(element => element.id == i)
-        data[indexfound].deleted=true
-    } else {
-        console.log(`tidak ditemukan data dengan id ${i}`);
-    }
-}
-
-function clear() {
-  const isIdFound = data.some(element => element.id == i)
-    if (isIdFound) {
-        const indexfound= data.findIndex(element => element.id == i)
-        if (data[indexfound].deleted == false) {
-            data[indexfound].status='done'
-        } else {
-            console.log("list sudah deleted");
-        }
-    } else {
-        console.log(`tidak ditemukan data dengan id ${i}`);
-    }
-}
 
 const App = () => {
-  // const [selectedId, setSelectedId] = useState(null);
+  const [selectedId, setSelectedId] = useState(null);
+  const [myText, setMyText] = useState('default');
+  const [todoList, setTodoList]=useState([{"id":1,"message":"Kerjain tugas","status":"","deleted":false}])
 
+  
+const add = () =>{
+  let lastId = todoList[todoList.length-1].id
+  setTodoList([...todoList,{
+    id: lastId+1, message: myText
+  }])
+}
 
-  const renderItem = ({ item }) => (
-    <Item id={item.id} message={item.message}/>
-  );
+const deleteList = (id) =>{
+  todoList.splice(id-1,1)
+  setTodoList([...todoList])
+}
+
+  const renderItem = ({ item }) => {
+    const backgroundColor = item.id === selectedId ? "#6e3b6e" : "#f9c2ff";
+
+    return (
+      <Item
+        item={item}
+        onPress={() => deleteList(item.id)}
+        style={{ backgroundColor }}
+      />
+    );
+  };
 
   return (
     <LinearGradient colors={['#73b1bc', '#a4d4de']} style={styles.linearGradient}> 
-      <View style={styles.container}>
+      <View>
         <Header title='DAILIST'/>
       </View>
+
       <View>
         <Text style={styles.subTitle}>Upcoming</Text>
         <FlatList
-          data={data}
+          data={todoList}
           keyExtractor={item => item.id}
           renderItem={renderItem}
+          extraData={selectedId}
+        />
+      </View>
+      
+      <View style={styles.footer}>
+      <TextInput
+        style={{height: 40}}
+        placeholder="Type here to translate!"
+        onChangeText={myText => setMyText(myText)}
+      />
+        <Button
+          title="add list"
+          onPress={() => add()}
         />
       </View>
     </LinearGradient>
@@ -109,10 +83,6 @@ const styles = StyleSheet.create({
     paddingRight: 15,
     borderRadius: 5
   },
-  background:{
-    backgroundColor:'#71b1bc',
-    flex: 1
-  },
   header:{
     textAlign:'center',
     color:'white',
@@ -125,9 +95,6 @@ const styles = StyleSheet.create({
     fontSize: 18,
     paddingLeft: 20
   },
-  container:{
-    flexDirection:'column'
-  },
   item: {
     borderRadius: 10,
     backgroundColor: '#fefefe',
@@ -135,5 +102,10 @@ const styles = StyleSheet.create({
     marginVertical: 8,
     marginHorizontal: 16,
   },
+  footer: {
+    flex:1,
+    justifyContent:'flex-end',
+    marginBottom:20
+  }
 })
 export default App;
