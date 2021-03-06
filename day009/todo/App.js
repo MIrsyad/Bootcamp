@@ -2,7 +2,7 @@ import React from 'react'
 import { StyleSheet, Text, View, FlatList } from 'react-native'
 import LinearGradient from 'react-native-linear-gradient';
 
-let data =[{"id":1,"message":"index ke 1","status":"","deleted":false},{"id":2,"message":"index ke 2","status":"","deleted":true},{"id":3,"message":"index ke 3","status":"done","deleted":false}]
+let data =[{"id":1,"message":"Kerjain tugas","status":"","deleted":false},{"id":2,"message":"besok try out","status":"","deleted":true},{"id":3,"message":"jangan lupa berdoa","status":"done","deleted":false}]
 
 const Item = ({id,message}) => (
   <View style={styles.item}>
