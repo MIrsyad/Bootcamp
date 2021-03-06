@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { StyleSheet, Text, View, FlatList } from 'react-native'
 import LinearGradient from 'react-native-linear-gradient';
 
@@ -10,8 +10,14 @@ const Item = ({id,message}) => (
   </View>
 );
 
+const Header = ({title}) => (
+  <View>
+    <Text style={styles.header}>{title}</Text>
+  </View>
+);  
+
 const ItemDeleted = ({id,message}) => (
-  <View style={styles.item}>
+  <View style={styles.item}>  
     <Text >{id}. {message}</Text>
   </View>
 );
@@ -71,29 +77,29 @@ function clear() {
     }
 }
 
-class App extends Component {
-  render() {
-    const renderItem = ({ item }) => (
-      <Item id={item.id} message={item.message}/>
-    );
-  
+const App = () => {
+  // const [selectedId, setSelectedId] = useState(null);
 
-    return (
-      <LinearGradient colors={['#73b1bc', '#a4d4de']} style={styles.linearGradient}> 
-        <View style={styles.container}>
-          <Text style={styles.header}> DAILIST </Text>
-        </View>
-        <View>
-          <Text style={styles.subTitle}>Upcoming</Text>
-          <FlatList
-            data={data}
-            keyExtractor={item => item.id}
-            renderItem={renderItem}
-          />
-        </View>
-      </LinearGradient>
-    )
-  }
+
+  const renderItem = ({ item }) => (
+    <Item id={item.id} message={item.message}/>
+  );
+
+  return (
+    <LinearGradient colors={['#73b1bc', '#a4d4de']} style={styles.linearGradient}> 
+      <View style={styles.container}>
+        <Header title='DAILIST'/>
+      </View>
+      <View>
+        <Text style={styles.subTitle}>Upcoming</Text>
+        <FlatList
+          data={data}
+          keyExtractor={item => item.id}
+          renderItem={renderItem}
+        />
+      </View>
+    </LinearGradient>
+  )
 }
 
 const styles = StyleSheet.create({
