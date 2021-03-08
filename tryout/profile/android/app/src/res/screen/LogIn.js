@@ -1,10 +1,26 @@
 import React,{useState} from 'react'
 import { View, Text, StyleSheet } from 'react-native'
 import { Header, Card , LoginButton} from '../component/reusable'
+import dataImport from "../../../../../dummy.json"
 
 export default function SignUp({navigation}) {
     const[email,setEmail]=useState()
     const[password,setPassword]=useState()
+    const[data, setData]=useState(dataImport)
+
+    function login(){
+        const userId = data.findIndex(element => element.email == email)
+        if (userId >= 0) {
+            const isPasswordMatch = (data[userId].password == password)
+            if (isPasswordMatch) {
+                navigation.navigate('Profile')
+            } else {
+                alert("Password tidak sesuai")
+            }
+        }else{
+            alert("email tidak terdaftar")
+        }
+    }
 
     return (
         <View style={{flex:1}}>
@@ -19,7 +35,8 @@ export default function SignUp({navigation}) {
             />
             <View style={style.loginButton}>
             <LoginButton 
-                onpress={() => navigation.navigate('Profile')}
+                onpress = {()=>login()}
+                // onpress={() => navigation.navigate('Profile')}
                 btnName="Log In"
             />
              <Text style={style.forgotStyle}>Forgot your password?</Text>
