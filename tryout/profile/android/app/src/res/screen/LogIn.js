@@ -13,7 +13,8 @@ export default function SignUp({navigation}) {
         if (userId >= 0) {
             const isPasswordMatch = (data[userId].password == password)
             if (isPasswordMatch) {
-                navigation.navigate('Profile')
+                const dataMatch = data[userId]
+                navigation.navigate('Profile',dataMatch)
             } else {
                 alert("Password tidak sesuai")
             }

@@ -2,7 +2,9 @@ import React from 'react'
 import { View, Text, StyleSheet } from 'react-native'
 import { Card, Header, ProfileImg, LoginButton } from '../component/reusable'
 
-export default function Profile({ navigation }) {
+export default function Profile({ navigation , route}) {
+    const {dataMatch}=route.params
+    console.log(dataMatch);
     return (
         <View style={{flex:1}}>
             <Header title="Profile"/>

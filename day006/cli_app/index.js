@@ -76,7 +76,6 @@ program
     } else {
         console.log(`tidak ditemukan data dengan id ${id}`);
     }
-
 })
 .command("clear", "menghapus semua todo list")
 .action(() => {

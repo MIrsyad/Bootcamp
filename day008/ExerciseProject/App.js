@@ -13,7 +13,7 @@ function getPekerjaan() {
   let pekerjaan = data.jobs
   return(<Text>
     {pekerjaan.map((info) => {
-      return <Text>{info.title} - {info.tech} {"\n"}</Text>
+      return <Text>* {info.title} - {info.tech} {"\n"}</Text>
     })}
   </Text>
 );
