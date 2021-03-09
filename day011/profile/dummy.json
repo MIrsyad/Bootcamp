@@ -1,0 +1,112 @@
+[
+    {
+      "id": 1,
+      "first_name": "Nichole",
+      "last_name": "Bouzan",
+      "email": "nbouzan0@vistaprint.com",
+      "gender": "Polygender",
+      "slogan": "maximize frictionless applications",
+      "jobs": "Graphic Designer",
+      "photo": "http://dummyimage.com/140x158.png/cc0000/ffffff",
+      "password": "nJN2494d5Xse"
+    },
+    {
+      "id": 2,
+      "first_name": "Shelly",
+      "last_name": "Matyashev",
+      "email": "smatyashev1@reddit.com",
+      "gender": "Genderqueer",
+      "slogan": "empower next-generation platforms",
+      "jobs": "VP Accounting",
+      "photo": "http://dummyimage.com/222x215.png/ff4444/ffffff",
+      "password": "KTDMBhl9Kx"
+    },
+    {
+      "id": 3,
+      "first_name": "Sharl",
+      "last_name": "Rattenberie",
+      "email": "srattenberie2@so-net.ne.jp",
+      "gender": "Non-binary",
+      "slogan": "evolve B2B e-tailers",
+      "jobs": "Senior Sales Associate",
+      "photo": "http://dummyimage.com/225x154.png/ff4444/ffffff",
+      "password": "DmHTFbd"
+    },
+    {
+      "id": 4,
+      "first_name": "Kaela",
+      "last_name": "Streatfeild",
+      "email": "kstreatfeild3@booking.com",
+      "gender": "Female",
+      "slogan": "drive sexy e-business",
+      "jobs": "VP Accounting",
+      "photo": "http://dummyimage.com/116x167.png/cc0000/ffffff",
+      "password": "i1jBtAOIJTg"
+    },
+    {
+      "id": 5,
+      "first_name": "Clayborne",
+      "last_name": "Cranke",
+      "email": "ccranke4@unblog.fr",
+      "gender": "Agender",
+      "slogan": "drive 24/7 e-business",
+      "jobs": "Engineer II",
+      "photo": "http://dummyimage.com/185x196.png/5fa2dd/ffffff",
+      "password": "IPmAJI"
+    },
+    {
+      "id": 6,
+      "first_name": "Myrta",
+      "last_name": "Wittey",
+      "email": "mwittey5@umn.edu",
+      "gender": "Male",
+      "slogan": "recontextualize collaborative ROI",
+      "jobs": "Mechanical Systems Engineer",
+      "photo": "http://dummyimage.com/103x154.png/dddddd/000000",
+      "password": "7hdTMIo9QKp"
+    },
+    {
+      "id": 7,
+      "first_name": "Jennine",
+      "last_name": "Kettlestringe",
+      "email": "jkettlestringe6@google.ru",
+      "gender": "Bigender",
+      "slogan": "mesh vertical relationships",
+      "jobs": "Staff Scientist",
+      "photo": "http://dummyimage.com/151x234.png/cc0000/ffffff",
+      "password": "tZ5Y7jfxGVa"
+    },
+    {
+      "id": 8,
+      "first_name": "Gery",
+      "last_name": "Bettison",
+      "email": "gbettison7@angelfire.com",
+      "gender": "Non-binary",
+      "slogan": "empower innovative partnerships",
+      "jobs": "Quality Control Specialist",
+      "photo": "http://dummyimage.com/122x198.png/5fa2dd/ffffff",
+      "password": "aLi2V8ICLRFv"
+    },
+    {
+      "id": 9,
+      "first_name": "Jacqui",
+      "last_name": "Coger",
+      "email": "jcoger8@samsung.com",
+      "gender": "Agender",
+      "slogan": "matrix wireless e-commerce",
+      "jobs": "Food Chemist",
+      "photo": "http://dummyimage.com/246x102.png/cc0000/ffffff",
+      "password": "ACsNWUMB2"
+    },
+    {
+      "id": 10,
+      "first_name": "Gregor",
+      "last_name": "Dubble",
+      "email": "gdubble9@wunderground.com",
+      "gender": "Genderfluid",
+      "slogan": "brand bricks-and-clicks e-business",
+      "jobs": "Programmer Analyst I",
+      "photo": "http://dummyimage.com/123x125.png/ff4444/ffffff",
+      "password": "byp8IKm"
+    }
+  ]
