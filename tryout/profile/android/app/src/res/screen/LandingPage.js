@@ -1,7 +1,16 @@
 import React from 'react'
+import { useState } from 'react'
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native'
+import App from '../../../../../App'
 
-export default function LandingPage({ navigation }) {
+export default function LandingPage(props) {
+    const[screen,setScreen]=useState('LandingPage')
+
+    function run() {
+        console.log("terpencet");
+        setScreen('LogIn')
+    }
+
     return (
         <View style={style.container}>
             <View style={{flex:5,justifyContent:'center',alignItems:'center'}}>
@@ -12,20 +21,13 @@ export default function LandingPage({ navigation }) {
                     }}
                 />            
             </View>
+            {/* <App sc={screen} action={run}/> */}
             <View style={style.container}>
                 <View style={{flex:1, flexDirection:'row',justifyContent:'space-around'}}>
-                    <TouchableOpacity
-                     onPress={() =>
-                        navigation.navigate('LogIn', { name: 'Jane' })
-                      }
-                    >
+                    <TouchableOpacity onPress={() => run()}>
                       <Text style={style.textStyle}>Login</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity
-                    onPress={() =>
-                        navigation.navigate('SignUp', { name: 'Jane' })
-                      }
-                    >
+                    <TouchableOpacity onPress={() => App({sc:'SignUp'}) }>
                         <Text style={style.textStyle}>Register</Text>
                     </TouchableOpacity>
                 </View>

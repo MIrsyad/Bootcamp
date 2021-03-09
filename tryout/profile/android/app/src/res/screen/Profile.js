@@ -1,10 +1,10 @@
 import React from 'react'
-import { View, Text, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import { Card, Header, ProfileImg, LoginButton } from '../component/reusable'
 
-export default function Profile({ navigation , route}) {
-    const {dataMatch}=route.params
-    console.log(dataMatch);
+export default function Profile(props) {
+    // const {dataMatch}=route.params
+    // console.log(dataMatch);
     return (
         <View style={{flex:1}}>
             <Header title="Profile"/>
@@ -21,7 +21,9 @@ export default function Profile({ navigation , route}) {
                 text='Jobs'
                 placeholder='Jobs'
             />
-            <LoginButton btnName="Update"/>
+           <TouchableOpacity onPress={() => <App sc='SignUp'/>}>
+                <Text style={style.textStyle}>Log out</Text>
+            </TouchableOpacity>
         </View>
     )
 }
@@ -35,5 +37,9 @@ const style = StyleSheet.create({
         alignSelf:'center',
         fontSize:16,
         marginBottom:20
+    },
+    textStyle:{
+        color:'black',
+        fontSize: 18
     }
 })
