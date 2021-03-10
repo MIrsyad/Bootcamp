@@ -3,28 +3,19 @@ import { Text, View, Button } from 'react-native'
 import { LandingScreen, ProfileScreen, SignUpScreen, LogInScreen } from './pages/index';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const storeData = async (value) => {
-  try {
-    const jsonValue = JSON.stringify(value)
-    await AsyncStorage.setItem('@storage_Key', jsonValue)
-  } catch (e) {
-    // saving error
-  }
-}
-
 export default class App extends Component {
   state = {
     isLogin: false,
-    userData: { nama: 'irsyad' },
+    userData: {},
     currentUserData: {},
     currentScreen: 'LandingPageScreen'
   }
 
   async getUserData() {
     const userDataJSON = await AsyncStorage.getItem('user_data');
-    console.log('user data local', { userDataJSON });
     if (userDataJSON !== null) {
       const userDataString = JSON.parse(userDataJSON);
+      console.log('user data local',  userDataString );
       this.setState({ userData: userDataString })
       console.log('data sudah tersimpan di state');
     }
@@ -42,8 +33,6 @@ export default class App extends Component {
 
   componentDidMount() {
     this.getUserData();
-    // const { userData } = this.state
-    // console.log('user data state', userData);
   }
 
   renderScreen = (e) => {
@@ -72,7 +61,8 @@ export default class App extends Component {
         />
       case 'SignUpScreen':
         return <SignUpScreen
-          signUp={() => this.renderScreen('ProfileScreen')}
+          data={userData}
+          registerTrue={() => this.renderScreen('LandingPage')}
         />
       case 'ProfileScreen':
         return <ProfileScreen

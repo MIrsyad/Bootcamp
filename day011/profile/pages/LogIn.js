@@ -6,7 +6,7 @@ import { Header, Card, LoginButton } from '../src/component/reusable'
 export default function SignUp(props) {
     const [email, setEmail] = useState()
     const [password, setPassword] = useState()
-    const [data, setData] = useState([props.data])
+    const [data, setData] = useState(props.data)
     const [currentUserData, setCurrentUserData] = useState()
 
 
