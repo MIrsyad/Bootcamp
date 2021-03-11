@@ -5,18 +5,37 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default class App extends Component {
   state = {
+    isLogin: false,
     userData: [],
     currentUserData: {},
-    currentScreen: 'LandingPageScreen'
+    currentScreen: 'LandingPageScreen',
+    isChecking: true
   }
 
   async getUserData() {
-    const userDataJSON = await AsyncStorage.getItem('user_data');
-    if (userDataJSON !== null) {
-      const userDataString = JSON.parse(userDataJSON);
-      console.log('user data local', userDataString);
-      this.setState({ userData: userDataString })
-      console.log('data sudah tersimpan di state');
+    try {
+      const currentUser = await AsyncStorage.getItem('currentUserData');
+      if (currentUser !== null) {
+        console.log('current user ditemukan');
+        this.renderScreenMatch('ProfileScreen')
+      } else {
+        console.log('current user tidak ditemukan');
+        const userDataJSON = await AsyncStorage.getItem('user_data');
+        if (userDataJSON !== null) {
+          const userDataString = JSON.parse(userDataJSON);
+          console.log('user data local', userDataString);
+          this.setState({ userData: userDataString })
+          console.log('data sudah tersimpan di state');
+        } else {
+          console.log('data user masih kosong');
+        }
+      }
+    } catch (error) {
+
+    } finally {
+      setTimeout(() => {
+        this.setState({ isChecking: false })
+      }, 2000);
     }
   }
 
@@ -32,13 +51,6 @@ export default class App extends Component {
 
   componentDidMount() {
     this.getUserData();
-    try {
-      setTimeout(() => {
-        <SplashScreen />
-      }, 1000);
-    } catch (error) {
-      
-    }
   }
 
   renderScreen = (e) => {
@@ -57,7 +69,6 @@ export default class App extends Component {
 
   rendeTab() {
     const { currentScreen, userData, currentUserData } = this.state;
-    console.log('tipedata', typeof (userData));
     switch (currentScreen) {
       case 'LogInScreen':
         return <LogInScreen
@@ -90,10 +101,13 @@ export default class App extends Component {
   //   this.clearData();
   // }
   render() {
+    const { isChecking } = this.state;
+    if (isChecking) {
+      return <SplashScreen />
+    }
     return (
       <View style={{ width: '100%', height: '100%' }}>
-        {/* {this.rendeTab()} */}
-        <SplashScreen />
+        {this.rendeTab()}
       </View>
     )
   }

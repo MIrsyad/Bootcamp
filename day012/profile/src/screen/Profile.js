@@ -1,3 +1,4 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, { useState } from 'react'
 import { View, Text, StyleSheet } from 'react-native'
 import { Card, Header, ProfileImg, LoginButton } from '../component/reusable'
@@ -7,22 +8,37 @@ export default function Profile(props) {
 
     function update() {
         console.log('update clicked');
-    //     console.log(data);
-    //     if (email !== null && password !== null) {
-    //         console.log('data terisi');
-    //         const dataRegister = {
-    //             email: email,
-    //             password: password
-    //         }
-    //         const dataDitambah = [...data, dataRegister]
-    //         const dataDitambahString=JSON.stringify(dataDitambah)
-    //         AsyncStorage.setItem('user_data', dataDitambahString)
-    //         console.log(dataDitambahString);
-    //         props.registerTrue()
-    //     } else {
-    //         alert('data harap diisi');
-    //     }
+        //     console.log(data);
+        //     if (email !== null && password !== null) {
+        //         console.log('data terisi');
+        //         const dataRegister = {
+        //             email: email,
+        //             password: password
+        //         }
+        //         const dataDitambah = [...data, dataRegister]
+        //         const dataDitambahString=JSON.stringify(dataDitambah)
+        //         AsyncStorage.setItem('user_data', dataDitambahString)
+        //         console.log(dataDitambahString);
+        //         props.registerTrue()
+        //     } else {
+        //         alert('data harap diisi');
+        //     }
 
+    }
+
+    async function removeItemValue(key) {
+        try {
+            await AsyncStorage.removeItem(key);
+            return true;
+        }
+        catch (exception) {
+            return false;
+        }
+    }
+
+    function logout() {
+        AsyncStorage.removeItem('currentUserData')
+        props.signOut()
     }
 
     return (
@@ -42,7 +58,7 @@ export default function Profile(props) {
                 placeholder={data.jobs}
             />
             <LoginButton onpress={() => update()} btnName="Update" />
-            <LoginButton onpress={props.signOut} btnName="LogOut" />
+            <LoginButton onpress={() => logout()} btnName="LogOut" />
         </View>
     )
 }
