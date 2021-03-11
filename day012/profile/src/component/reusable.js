@@ -4,8 +4,11 @@ import { View, Text, TouchableOpacity, StyleSheet, TextInput, Image } from 'reac
 const Header = (props) => {
     return (
         <View style={style.header}>
+                <TouchableOpacity onPress={props.backpressed}>
+                    <Text style={{fontSize: 15, paddingStart:10}}>{props.back}</Text>
+                </TouchableOpacity>
                 <Text style={style.textStyle}>{props.title}</Text>
-                <Text>{props.subTitle}</Text>
+                <Text>             </Text>
         </View>
     )
 }
@@ -15,9 +18,12 @@ const Card= (props) => {
         <View>
             <Text style={style.cardText}>{props.text}</Text>
             <TextInput
+            value={props.value}
             editable={props.editable}
+            onEndEditing={props.onEndEditing}
             onChangeText={props.onChangeText}
             placeholder={props.placeholder}
+            secureTextEntry={props.secure}
             style={style.textInput}
             />
         </View>
@@ -42,11 +48,12 @@ const LoginButton = (props) => {
 
 const style = StyleSheet.create({
     header:{
+        paddingTop:15,
         flexDirection:'row',
-        justifyContent:'center'
+        justifyContent:'space-between'
     },
     textStyle: {
-        paddingTop:15,
+        alignSelf:'center',
         fontSize: 30
     },
     textInput:{

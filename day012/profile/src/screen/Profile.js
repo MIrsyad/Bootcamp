@@ -1,39 +1,31 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, { useState } from 'react'
-import { View, Text, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet, TextInput } from 'react-native'
 import { Card, Header, ProfileImg, LoginButton } from '../component/reusable'
 
 export default function Profile(props) {
     const [data, setData] = useState(props.data)
+    const [edit, setEdit] = useState('update')
+    const [isEdit, setIsEdit] = useState(false)
 
-    function update() {
+    async function update() {
         console.log('update clicked');
-        //     console.log(data);
-        //     if (email !== null && password !== null) {
-        //         console.log('data terisi');
-        //         const dataRegister = {
-        //             email: email,
-        //             password: password
-        //         }
-        //         const dataDitambah = [...data, dataRegister]
-        //         const dataDitambahString=JSON.stringify(dataDitambah)
-        //         AsyncStorage.setItem('user_data', dataDitambahString)
-        //         console.log(dataDitambahString);
-        //         props.registerTrue()
-        //     } else {
-        //         alert('data harap diisi');
-        //     }
+        console.log({ data });
 
-    }
+        const userDataJSON = await AsyncStorage.getItem('user_data');
+        const userDataString = JSON.parse(userDataJSON);
+        console.log({ userDataString });
 
-    async function removeItemValue(key) {
-        try {
-            await AsyncStorage.removeItem(key);
-            return true;
-        }
-        catch (exception) {
-            return false;
-        }
+        const userId = userDataString.findIndex(element => element.email == data.email)
+        console.log(`id found ${userId}`);
+
+        console.log(data);
+        console.log('asda');
+        userDataString[userId] = data
+        console.log({ userDataString });
+
+        AsyncStorage.setItem('user_data',JSON.stringify(userDataString))
+        AsyncStorage.setItem('currentUserData',JSON.stringify(data))
     }
 
     function logout() {
@@ -45,19 +37,37 @@ export default function Profile(props) {
         <View style={{ flex: 1 }}>
             <Header title="Profile" />
             <ProfileImg />
-            <Text style={style.title}>{data.first_name}</Text>
+            <TextInput 
+            style={style.title}
+            editable={isEdit}
+            onChangeText={(first_name) => setData({ ...data, first_name })}
+            >{data.first_name}</TextInput>
             <Text style={style.subTitle}>{data.last_name}</Text>
             <Card
-                editable={false}
+                value={data.slogan}
+                onChangeText={(slogan) => setData({ ...data, slogan })}
+                editable={isEdit}
                 text='Slogan'
-                placeholder={data.slogan}
             />
             <Card
-                editable={false}
+                editable={isEdit}
+                onChangeText={(jobs) => setData({ ...data, jobs })}
                 text='Jobs'
-                placeholder={data.jobs}
+                value={data.jobs}
             />
-            <LoginButton onpress={() => update()} btnName="Update" />
+            <LoginButton
+                onpress={(props) => {
+                    if (isEdit) {
+                        update()
+                        setEdit('Update')
+                        setIsEdit(false)
+                    } else {
+                        setEdit('Save')
+                        setIsEdit(true)
+                    }
+                }}
+                btnName={edit}
+            />
             <LoginButton onpress={() => logout()} btnName="LogOut" />
         </View>
     )

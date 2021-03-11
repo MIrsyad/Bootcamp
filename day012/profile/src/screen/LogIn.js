@@ -6,8 +6,7 @@ import { Header, Card, LoginButton } from '../component/reusable'
 export default function SignUp(props) {
     const [email, setEmail] = useState()
     const [password, setPassword] = useState()
-    const [currentUserData, setCurrentUserData] = useState()
-    const data = props.data
+    const {data} = props // data = props.data & {data} = props bedanya apa?
 
 
     function login() {
@@ -32,7 +31,11 @@ export default function SignUp(props) {
 
     return (
         <View style={{ flex: 1 }}>
-            <Header title="Log In"></Header>
+            <Header 
+            backpressed={props.backpressed}
+            back={props.back}
+            title="Log In"
+            ></Header>
             <Card
                 onChangeText={(email) => setEmail(email)}
                 placeholder="Email"
@@ -40,6 +43,7 @@ export default function SignUp(props) {
             <Card
                 onChangeText={(password) => setPassword(password)}
                 placeholder="Password"
+                secure={true}
             />
             <View style={style.loginButton}>
                 <LoginButton

@@ -72,11 +72,15 @@ export default class App extends Component {
     switch (currentScreen) {
       case 'LogInScreen':
         return <LogInScreen
+          backpressed={() => this.renderScreen('LandingPage')}
+          back='Back'
           data={userData}
           logintrue={() => this.renderScreenMatch('ProfileScreen')}
         />
       case 'SignUpScreen':
         return <SignUpScreen
+          backpressed={() => this.renderScreen('LandingPage')}
+          back='Back'
           data={userData}
           registerTrue={() => this.renderScreen('LandingPage')}
         />
