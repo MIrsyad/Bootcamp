@@ -2,13 +2,16 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 import React, { useState } from 'react'
 import { View, Text, StyleSheet } from 'react-native'
 import { Header, Card, LoginButton } from '../component/reusable'
+import { useEmailValidation, usePasswordValidation } from '../lib/index';
 
 export default function SignUp(props) {
     const [email, setEmail] = useState()
     const [nama, setNama] = useState()
     const [password, setPassword] = useState()
-    let { data } = props
+    const [isValidEmail, setTextEmail] = useEmailValidation()
+    const [isValidPassword, setTextPassword] = usePasswordValidation()
 
+    let { data } = props
 
     function signup() {
         console.log(data);
@@ -52,28 +55,38 @@ export default function SignUp(props) {
 
             </Header>
             <Card
-                onChangeText={(email) => setEmail(email)}
+                onChangeText={(email) => {
+                    setEmail(email)
+                    setTextEmail(email)
+                }}
                 placeholder="Email"
             />
+            {!isValidEmail ? <Text style={style.alertStyle}>invalid Email</Text> : null}
             <Card
                 onChangeText={(nama) => setNama(nama)}
                 placeholder="first name"
             />
             <Card
-                onChangeText={(password) => setPassword(password)}
+                onChangeText={(password) => {
+                    setPassword(password)
+                    setTextPassword(password)
+                }}
                 placeholder="Password"
                 secure={true}
             />
+            {!isValidPassword ? <Text style={style.alertStyle}>password length min 6</Text> : null}
             <View style={style.loginButton}>
-                <LoginButton onpress={() => {
-                    if (email == null || password == null || nama == null) {
-                        alert('harap isi data')
-                    } else {
-                        if (validating()) {
-                            signup()
+                <LoginButton
+                    disabled={!isValidEmail || !isValidPassword}
+                    onpress={() => {
+                        if (email == null || password == null || nama == null) {
+                            alert('harap isi data')
+                        } else {
+                            if (validating()) {
+                                signup()
+                            }
                         }
-                    }
-                }}
+                    }}
                     btnName="Sign Up" />
                 <Text style={style.forgotStyle}>Forgot your password?</Text>
             </View>
@@ -92,5 +105,9 @@ const style = StyleSheet.create({
         alignSelf: 'center',
         padding: 16,
         fontSize: 16
+    },
+    alertStyle:{
+        color:'red',
+        paddingStart: 10
     }
 })

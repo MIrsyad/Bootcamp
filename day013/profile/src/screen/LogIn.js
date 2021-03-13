@@ -2,22 +2,24 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 import React, { useState } from 'react'
 import { View, Text, StyleSheet } from 'react-native'
 import { Header, Card, LoginButton } from '../component/reusable'
+import { useEmailValidation, usePasswordValidation } from '../lib/index';
 
 export default function SignUp(props) {
     const [email, setEmail] = useState()
     const [password, setPassword] = useState()
-    const {data} = props // data = props.data & {data} = props bedanya apa?
-
+    const { data } = props // data = props.data & {data} = props bedanya apa?
+    const [isValidEmail, setTextEmail] = useEmailValidation()
+    const [isValidPassword, setTextPassword] = usePasswordValidation()
 
     function login() {
-        console.log({data});
+        console.log({ data });
         const userId = data.findIndex(element => element.email == email)
         if (userId >= 0) {
             const isPasswordMatch = (data[userId].password == password)
             if (isPasswordMatch) {
                 const dataMatch = data[userId]
                 console.log('data Benar');
-                AsyncStorage.setItem('currentUserData',JSON.stringify(dataMatch))
+                AsyncStorage.setItem('currentUserData', JSON.stringify(dataMatch))
                 console.log('data saved to local');
                 props.logintrue()
             } else {
@@ -31,22 +33,29 @@ export default function SignUp(props) {
 
     return (
         <View style={{ flex: 1 }}>
-            <Header 
-            backpressed={props.backpressed}
-            back={props.back}
-            title="Log In"
+            <Header
+                backpressed={props.backpressed}
+                back={props.back}
+                title="Log In"
             ></Header>
             <Card
-                onChangeText={(email) => setEmail(email)}
+                onChangeText={(email) => {
+                    setEmail(email)
+                    setTextEmail(email)
+                }}
                 placeholder="Email"
             />
             <Card
-                onChangeText={(password) => setPassword(password)}
+                onChangeText={(password) => {
+                    setPassword(password)
+                    setTextPassword(password)
+                }}
                 placeholder="Password"
                 secure={true}
             />
             <View style={style.loginButton}>
                 <LoginButton
+                    disabled={!isValidEmail}
                     onpress={() => login()}
                     btnName="Log In"
                 />

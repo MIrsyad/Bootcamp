@@ -40,7 +40,7 @@ const ProfileImg = (props) => {
 
 const LoginButton = (props) => {
     return(
-        <TouchableOpacity onPress={props.onpress} style={style.button}>
+        <TouchableOpacity disabled={props.disabled} onPress={props.onpress} style={style.button}>
             <Text style={style.textButton} >{props.btnName}</Text>
         </TouchableOpacity> 
     )
