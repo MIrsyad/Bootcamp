@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Text, View, Button } from 'react-native'
+import { View } from 'react-native'
 import { LandingScreen, ProfileScreen, SignUpScreen, LogInScreen, SplashScreen } from './src/screen/index';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -39,16 +39,6 @@ export default class App extends Component {
     }
   }
 
-  async getCurrentUserData() {
-    const currenUserDataJSON = await AsyncStorage.getItem('currentUserData');
-    console.log('current user data local', { currenUserDataJSON });
-    if (currenUserDataJSON !== null) {
-      const currentUserDataString = JSON.parse(currenUserDataJSON);
-      this.setState({ currentUserData: currentUserDataString })
-      console.log('data current sudah tersimpan di state');
-    }
-  }
-
   componentDidMount() {
     this.getUserData();
   }
@@ -65,6 +55,7 @@ export default class App extends Component {
       console.log('data current sudah tersimpan di state');
       this.setState({ currentScreen: e });
     }
+
   }
 
   rendeTab() {
@@ -87,7 +78,10 @@ export default class App extends Component {
       case 'ProfileScreen':
         return <ProfileScreen
           data={currentUserData}
-          signOut={() => this.renderScreen('LandingPage')}
+          signOut={() => {
+            this.getUserData()
+            this.renderScreen('LandingPage')
+          }}
         />
       default:
         return <LandingScreen
@@ -103,7 +97,7 @@ export default class App extends Component {
 
   // componentWillUnmount() {
   //   this.clearData();
-  // }
+  // }    
   render() {
     const { isChecking } = this.state;
     if (isChecking) {

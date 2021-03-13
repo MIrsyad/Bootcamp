@@ -10,17 +10,16 @@ export default function Profile(props) {
 
     async function update() {
         console.log('update clicked');
-        console.log({ data });
+        console.log(data );
 
         const userDataJSON = await AsyncStorage.getItem('user_data');
         const userDataString = JSON.parse(userDataJSON);
         console.log({ userDataString });
 
         const userId = userDataString.findIndex(element => element.email == data.email)
-        console.log(`id found ${userId}`);
+        console.log(`id found at index ${userId}`);
 
         console.log(data);
-        console.log('asda');
         userDataString[userId] = data
         console.log({ userDataString });
 

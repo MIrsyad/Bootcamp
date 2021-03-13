@@ -1,12 +1,11 @@
 import React, { Component } from 'react'
 import { Text, View, Button } from 'react-native'
-import { LandingScreen, ProfileScreen, SignUpScreen, LogInScreen } from './pages/index';
+import { LandingScreen, ProfileScreen, SignUpScreen, LogInScreen } from './src/screen/index';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default class App extends Component {
   state = {
-    isLogin: false,
-    userData: {},
+    userData: [],
     currentUserData: {},
     currentScreen: 'LandingPageScreen'
   }
@@ -15,7 +14,7 @@ export default class App extends Component {
     const userDataJSON = await AsyncStorage.getItem('user_data');
     if (userDataJSON !== null) {
       const userDataString = JSON.parse(userDataJSON);
-      console.log('user data local',  userDataString );
+      console.log('user data local', userDataString);
       this.setState({ userData: userDataString })
       console.log('data sudah tersimpan di state');
     }
@@ -50,9 +49,7 @@ export default class App extends Component {
   }
 
   rendeTab() {
-    const { currentScreen } = this.state;
-    const { userData } = this.state;
-    const { currentUserData } = this.state;
+    const { currentScreen, userData, currentUserData } = this.state;
     switch (currentScreen) {
       case 'LogInScreen':
         return <LogInScreen
@@ -78,7 +75,6 @@ export default class App extends Component {
   }
 
   render() {
-    const { isLogin, userData } = this.state;
     return (
       <View style={{ width: '100%', height: '100%' }}>
         {this.rendeTab()}

@@ -1,15 +1,17 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import React, { useState } from 'react'
 import { View, Text, StyleSheet } from 'react-native'
-import { Header, Card, LoginButton } from '../src/component/reusable'
+import { Header, Card, LoginButton } from '../component/reusable'
 
 export default function SignUp(props) {
     const [email, setEmail] = useState()
     const [password, setPassword] = useState()
-    const [data, setData] = useState([props.data])
+    const data = props.data
 
 
     function signup() {
+        console.log('panjang',data.length());
+        console.log('bingungh anjir');
         console.log(data);
         if (email !== null && password !== null) {
             console.log('data terisi');
@@ -17,14 +19,25 @@ export default function SignUp(props) {
                 email: email,
                 password: password
             }
-            const dataDitambah = [...data, dataRegister]
-            const dataDitambahString=JSON.stringify(dataDitambah)
-            AsyncStorage.setItem('user_data', dataDitambahString)
-            console.log(dataDitambahString);
-            props.registerTrue()
+            if (data.length == 0) {
+                console.log('data length = 0');
+                const dataDitambah = dataRegister
+                const dataDitambahString = JSON.stringify(dataDitambah)
+                AsyncStorage.setItem('user_data', dataDitambahString)
+                console.log(dataDitambahString);
+                props.registerTrue()
+            } else {
+                console.log('data length lebih dari 1');
+                const dataDitambah = data.push(dataRegister)
+                const dataDitambahString = JSON.stringify(dataDitambah)
+                AsyncStorage.setItem('user_data', dataDitambahString)
+                console.log(dataDitambahString);
+                props.registerTrue()
+            }
         } else {
             alert('data harap diisi');
         }
+    
 
     }
 

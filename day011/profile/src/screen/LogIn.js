@@ -1,13 +1,13 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import React, { useState } from 'react'
 import { View, Text, StyleSheet } from 'react-native'
-import { Header, Card, LoginButton } from '../src/component/reusable'
+import { Header, Card, LoginButton } from '../component/reusable'
 
 export default function SignUp(props) {
     const [email, setEmail] = useState()
     const [password, setPassword] = useState()
-    const [data, setData] = useState(props.data)
     const [currentUserData, setCurrentUserData] = useState()
+    const data = props.data
 
 
     function login() {
@@ -18,8 +18,6 @@ export default function SignUp(props) {
             if (isPasswordMatch) {
                 const dataMatch = data[userId]
                 console.log('data Benar');
-                // setCurrentUserData(dataMatch)
-                // this.props.setData(dataMatch);
                 AsyncStorage.setItem('currentUserData',JSON.stringify(dataMatch))
                 console.log('data saved to local');
                 props.logintrue()
@@ -31,10 +29,6 @@ export default function SignUp(props) {
         }
 
     }
-
-    // function loginTrue() {
-    //     props.logintrue()
-    // }
 
     return (
         <View style={{ flex: 1 }}>

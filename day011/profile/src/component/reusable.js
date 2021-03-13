@@ -60,6 +60,7 @@ const style = StyleSheet.create({
         marginHorizontal: 16,
     },
     button:{
+        margin:10,
         backgroundColor: "#5DB075",
         borderRadius:100,
         display:'flex',

@@ -1,9 +1,30 @@
 import React, { useState } from 'react'
 import { View, Text, StyleSheet } from 'react-native'
-import { Card, Header, ProfileImg, LoginButton } from '../src/component/reusable'
+import { Card, Header, ProfileImg, LoginButton } from '../component/reusable'
 
 export default function Profile(props) {
     const [data, setData] = useState(props.data)
+
+    function update() {
+        console.log('update clicked');
+    //     console.log(data);
+    //     if (email !== null && password !== null) {
+    //         console.log('data terisi');
+    //         const dataRegister = {
+    //             email: email,
+    //             password: password
+    //         }
+    //         const dataDitambah = [...data, dataRegister]
+    //         const dataDitambahString=JSON.stringify(dataDitambah)
+    //         AsyncStorage.setItem('user_data', dataDitambahString)
+    //         console.log(dataDitambahString);
+    //         props.registerTrue()
+    //     } else {
+    //         alert('data harap diisi');
+    //     }
+
+    }
+
     return (
         <View style={{ flex: 1 }}>
             <Header title="Profile" />
@@ -20,9 +41,8 @@ export default function Profile(props) {
                 text='Jobs'
                 placeholder={data.jobs}
             />
+            <LoginButton onpress={() => update()} btnName="Update" />
             <LoginButton onpress={props.signOut} btnName="LogOut" />
-            {/* <LoginButton onpress={() =>console.log(data)} btnName="LogOut" /> */}
-
         </View>
     )
 }
