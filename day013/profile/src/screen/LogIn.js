@@ -2,34 +2,13 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 import React, { useState } from 'react'
 import { View, Text, StyleSheet } from 'react-native'
 import { Header, Card, LoginButton } from '../component/reusable'
-import { useEmailValidation, usePasswordValidation } from '../lib/index';
+import { useEmailValidation, usePasswordValidation, useAuth } from '../lib/index';
 
 export default function SignUp(props) {
-    const [email, setEmail] = useState()
-    const [password, setPassword] = useState()
-    const { data } = props // data = props.data & {data} = props bedanya apa?
+    // const { data } = props // data = props.data & {data} = props bedanya apa?
     const [isValidEmail, setTextEmail] = useEmailValidation()
     const [isValidPassword, setTextPassword] = usePasswordValidation()
-
-    function login() {
-        console.log({ data });
-        const userId = data.findIndex(element => element.email == email)
-        if (userId >= 0) {
-            const isPasswordMatch = (data[userId].password == password)
-            if (isPasswordMatch) {
-                const dataMatch = data[userId]
-                console.log('data Benar');
-                AsyncStorage.setItem('currentUserData', JSON.stringify(dataMatch))
-                console.log('data saved to local');
-                props.logintrue()
-            } else {
-                alert("Password tidak sesuai")
-            }
-        } else {
-            alert("email tidak terdaftar")
-        }
-
-    }
+    const [isMatch, setEmailAuth, setPasswordAuth, setData] = useAuth(props.data)
 
     return (
         <View style={{ flex: 1 }}>
@@ -40,23 +19,31 @@ export default function SignUp(props) {
             ></Header>
             <Card
                 onChangeText={(email) => {
-                    setEmail(email)
+                    setEmailAuth(email)
                     setTextEmail(email)
                 }}
                 placeholder="Email"
             />
             <Card
                 onChangeText={(password) => {
-                    setPassword(password)
+                    setPasswordAuth(password)
                     setTextPassword(password)
                 }}
-                placeholder="Password"
                 secure={true}
+                placeholder="password"
             />
             <View style={style.loginButton}>
                 <LoginButton
                     disabled={!isValidEmail}
-                    onpress={() => login()}
+                    onpress={() => {
+
+                        if (isMatch) {
+                            props.logintrue()
+                        }else{
+                            alert('data salah')
+                        }
+                        console.log(isMatch);
+                    }}
                     btnName="Log In"
                 />
                 <Text style={style.forgotStyle}>Forgot your password?</Text>

@@ -5,10 +5,6 @@ function validatingEmail(value) {
   return re.test(value);
 }
 
-// function validatingPassword() {
-//   return 'value'.length > 6 ? true : false;
-// }
-
 export default function useValidation() {
   const [textEmail, setTextEmail] = useState('');
   const [isValidEmail, setIsValidEmail] = useState(false);
