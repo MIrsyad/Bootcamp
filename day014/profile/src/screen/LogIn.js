@@ -37,7 +37,7 @@ export default function SignUp({ navigation, route }) {
                     onpress={() => {
 
                         if (isMatch) {
-                            navigation.navigate('Home',currentUser)
+                            navigation.navigate('Home')
                         } else {
                             alert('email ditemukan tetapi password salah')
                         }

@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { View, Text } from 'react-native'
 import { LandingScreen, ProfileScreen, SignUpScreen, LogInScreen, SplashScreen, HomeScreen } from './src/screen/index';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -48,6 +47,7 @@ export default class App extends Component {
 
   componentDidMount() {
     // this.getUserData();
+    // this.clearData()
     setTimeout(() => {
       this.setState({ isChecking: false })
     }, 2000);
@@ -111,8 +111,8 @@ export default class App extends Component {
   Home() {
     return (
       <Tab.Navigator>
-        <Tab.Screen name="Profile" component={ProfileScreen} />
         <Tab.Screen name="Home" component={HomeScreen} />
+        <Tab.Screen name="Profil  e" component={ProfileScreen} />
       </Tab.Navigator>
     );
   }
@@ -135,6 +135,7 @@ export default class App extends Component {
           <Stack.Screen name="SignUp" component={SignUpScreen} />
           <Stack.Screen name="LogIn" component={LogInScreen} />
           <Stack.Screen name="Splash" component={SplashScreen} />
+          <Stack.Screen name="Profile" component={ProfileScreen} />
 
         </Stack.Navigator>
       </NavigationContainer>

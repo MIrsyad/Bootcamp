@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react'
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native'
 
 export default function LandingPage({ navigation }) {
-    const [userData, setUserData] = useState()
+    const [userData, setUserData] = useState([])
 
     useEffect(() => {
         getUserData();
@@ -16,7 +16,7 @@ export default function LandingPage({ navigation }) {
             const currentUser = await AsyncStorage.getItem('currentUserData');
             if (currentUser !== null) {
                 console.log('current user ditemukan',currentUser);
-                navigation.navigate('Home',currentUser)
+                navigation.navigate('Home')
             } else {
                 console.log('current user tidak ditemukan');
                 const userDataJSON = await AsyncStorage.getItem('user_data');
@@ -47,16 +47,18 @@ export default function LandingPage({ navigation }) {
             <View style={style.container}>
                 <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-around' }}>
                     <TouchableOpacity
-                        onPress={() =>
+                        onPress={() =>{
+                            console.log(userData);
                             //  props.logInOnPress()
                             navigation.navigate('LogIn', userData)
-                        }>
+                        }}>
                         <Text style={style.textStyle}>Login</Text>
                     </TouchableOpacity>
                     <TouchableOpacity
                         onPress={() =>
                             // props.signUpOnPress()
                             navigation.navigate('SignUp', userData)
+                            // AsyncStorage.clear()
                         }>
                         <Text style={style.textStyle}>Register</Text>
                     </TouchableOpacity>
