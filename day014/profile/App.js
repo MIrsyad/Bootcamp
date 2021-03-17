@@ -1,9 +1,17 @@
-import React, { Component } from 'react'
-import { View, Text } from 'react-native'
-import { LandingScreen, ProfileScreen, SignUpScreen, LogInScreen, SplashScreen, HomeScreen } from './src/screen/index';
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import React, {Component} from 'react';
+import {View, Text} from 'react-native';
+import {
+  LandingScreen,
+  ProfileScreen,
+  SignUpScreen,
+  LogInScreen,
+  SplashScreen,
+  HomeScreen,
+  DetailPost,
+} from './src/screen/index';
+import {NavigationContainer} from '@react-navigation/native';
+import {createStackNavigator} from '@react-navigation/stack';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -14,8 +22,8 @@ export default class App extends Component {
     userData: [],
     currentUserData: {},
     currentScreen: 'LandingPageScreen',
-    isChecking: true
-  }
+    isChecking: true,
+  };
 
   // async getUserData() {
   //   try {
@@ -44,12 +52,11 @@ export default class App extends Component {
   //   }
   // }
 
-
   componentDidMount() {
     // this.getUserData();
     // this.clearData()
     setTimeout(() => {
-      this.setState({ isChecking: false })
+      this.setState({isChecking: false});
     }, 2000);
   }
 
@@ -107,7 +114,7 @@ export default class App extends Component {
 
   // componentWillUnmount() {
   //   this.clearData();
-  // }    
+  // }
   Home() {
     return (
       <Tab.Navigator>
@@ -118,25 +125,23 @@ export default class App extends Component {
   }
 
   render() {
-    const { isChecking } = this.state;
+    const {isChecking} = this.state;
     if (isChecking) {
-      return <SplashScreen />
+      return <SplashScreen />;
     }
     return (
-
       <NavigationContainer>
         <Stack.Navigator
           screenOptions={{
-            headerShown: false
+            headerShown: false,
           }}>
-
+          <Stack.Screen name="DetailPost" component={DetailPost} />
           <Stack.Screen name="LandingScreen" component={LandingScreen} />
           <Stack.Screen name="Home" component={this.Home} />
           <Stack.Screen name="SignUp" component={SignUpScreen} />
           <Stack.Screen name="LogIn" component={LogInScreen} />
           <Stack.Screen name="Splash" component={SplashScreen} />
           <Stack.Screen name="Profile" component={ProfileScreen} />
-
         </Stack.Navigator>
       </NavigationContainer>
 
@@ -147,6 +152,6 @@ export default class App extends Component {
       // <View style={{ width: '100%', height: '100%' }}>
       //   {this.rendeTab()}
       // </View>
-    )
+    );
   }
 }
