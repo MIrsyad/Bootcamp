@@ -6,34 +6,6 @@ import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native'
 export default function LandingPage({ navigation }) {
     const [userData, setUserData] = useState([])
 
-    // useEffect(() => {
-    //     getUserData();
-    // }, [])
-
-    // async function getUserData() {
-    //     console.log('get user Data');
-    //     try {
-    //         const currentUser = await AsyncStorage.getItem('currentUserData');
-    //         if (currentUser !== null) {
-    //             console.log('current user ditemukan',currentUser);
-    //             navigation.navigate('Home')
-    //         } else {
-    //             console.log('current user tidak ditemukan');
-    //             const userDataJSON = await AsyncStorage.getItem('user_data');
-    //             if (userDataJSON !== null) {
-    //                 const userDataString = JSON.parse(userDataJSON);
-    //                 console.log('user data local', userDataString);
-    //                 setUserData(userDataString)
-    //                 console.log('data sudah tersimpan di state');
-    //             } else {
-    //                 console.log('data user masih kosong');
-    //             }
-    //         }
-    //     } catch (error) {
-    //         console.log(error);
-    //     }
-    // }
-
     return (
         <View style={style.container}>
             <View style={{ flex: 5, justifyContent: 'center', alignItems: 'center' }}>

@@ -1,6 +1,7 @@
 import React, {createContext, useContext, useState, useEffect} from 'react';
 
 import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const UserContext = createContext();
 
@@ -29,6 +30,7 @@ const UserProvider = ({children}) => {
           console.log('status success');
           setIsLogin(true);
           setUser(res.data.data);
+          AsyncStorage.setItem('curent_user', JSON.stringify(user));
         } else {
           setIsLogin(false);
           console.log(res.status);
@@ -41,6 +43,18 @@ const UserProvider = ({children}) => {
       .finally(() => setIsLoading(false));
   };
 
+  const getLocalUser = () => {
+    try {
+      const data = AsyncStorage.getItem('current_user');
+      if (data !== null) {
+        setIsLogin(true);
+        setUser(data);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const getProduct = async (token) => {
     await axios
       .get('http://simple-wms.herokuapp.com/api/v1/product', {
@@ -49,7 +63,9 @@ const UserProvider = ({children}) => {
         },
       })
       .then((res) => {
-        setProduct(res.data.data.data)
+        // const prod = res.data.data.data;
+        // return prod
+        setProduct(res.data.data.data);
         console.log(product);
       })
       .catch((err) => {
@@ -68,6 +84,7 @@ const UserProvider = ({children}) => {
     isLogin,
     login,
     getProduct,
+    getLocalUser,
     clearData: () => clearData(),
   };
   return <UserContext.Provider value={value}>{children}</UserContext.Provider>;

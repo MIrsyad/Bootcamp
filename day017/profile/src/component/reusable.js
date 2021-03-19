@@ -64,20 +64,27 @@ const LoginButton = (props) => {
 };
 
 const LoadingIndicator = (props) => {
-    LoadingIndicator.defaultProps = {
-        size: 'large',
-        color: '#00ff00'
-      };
+  LoadingIndicator.defaultProps = {
+    size: 'large',
+    color: '#00ff00',
+  };
   return (
-    <ActivityIndicator
-      size={(props.size)}
-      color={(props.color)}
-    />
+    <View style={style.loading}>
+      <ActivityIndicator size={props.size} color={props.color} />
+    </View>
   );
 };
 
-
 const style = StyleSheet.create({
+  loading: {
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    top: 0,
+    bottom: 0,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
   header: {
     paddingTop: 15,
     flexDirection: 'row',

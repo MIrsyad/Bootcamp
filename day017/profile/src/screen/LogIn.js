@@ -6,29 +6,28 @@ import {
   LoginButton,
   LoadingIndicator,
 } from '../component/reusable';
-import {useEmailValidation, usePasswordValidation} from '../lib/index';
+import {usePasswordValidation} from '../lib/index';
 import {useUser} from '../Context/UserContext';
 
 export default function SignUp({navigation, route}) {
-  const [isValidEmail, setTextEmail] = useEmailValidation();
   const [username, setUsername] = useState();
   const [
     isValidPassword,
     textPassword,
     setTextPassword,
   ] = usePasswordValidation();
-  const {login, isLogin} = useUser();
-
-    // useEffect(() => {
-    //     console.log('useEffect ',isLogin);
-    // })
+  const {login, isLogin, isLoading} = useUser();
 
   return (
     <View style={{flex: 1}}>
+      {isLoading && <LoadingIndicator />}
+
       <Header
         backpressed={() => navigation.navigate('LandingScreen')}
         back="Back"
-        title="Log In"></Header>
+        title="Log In"
+      />
+
       <Card
         onChangeText={(username) => {
           setUsername(username);

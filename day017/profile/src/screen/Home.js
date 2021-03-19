@@ -19,8 +19,7 @@ const Item = ({item, onPress, style}) => (
 
 export default function Home({navigation}) {
   const [selectedId, setSelectedId] = useState(null);
-
-  const {user, getProduct , product} = useUser();
+  const {user, getProduct, product} = useUser();
 
   const [response, err, isLoading] = useGetData(
     'https://jsonplaceholder.typicode.com/posts',
@@ -28,24 +27,19 @@ export default function Home({navigation}) {
 
   useEffect(() => {
     console.log('useEffect getproduct run');
-    getProduct(user.token)
-  }, [product])
+    getProduct(user.token);
+  },[]);
   const renderItem = ({item}) => {
     return (
       <Item
-        item={item}
-        onPress={() => getProduct(user.token)
-          // navigation.navigate(
-          //   'DetailPost',
-          //   response.find((x) => x.id == item.id),
-          // )
-        }
+        item={Item}
+        onPress={() => console.log('clicked')}
       />
     );
   };
 
   return (
-    <View style={{backgroundColor: '#f5f5f5'}}>
+    <View style={{backgroundColor: '#f5f5f5', flex: 1}}>
       {isLoading ? (
         <LoadingIndicator />
       ) : (
