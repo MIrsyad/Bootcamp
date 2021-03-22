@@ -2,7 +2,10 @@ import React, {useEffect, useState} from 'react';
 import {View, Text, FlatList, TouchableOpacity, StyleSheet} from 'react-native';
 import {LoadingIndicator} from '../component/reusable';
 import {useUser} from '../Context/UserContext';
-import ProductProvider, {useProduct} from '../Context/productContext';
+// import ProductProvider, {useProduct} from '../Context/productContext';
+import { useQuery } from '@apollo/client';
+import { QUERY_RATES } from '../graphql/query/getUser';
+import { GraphProvider } from '../graphql/apollo';
 
 const Item = ({item, onPress, style}) => (
   <TouchableOpacity onPress={onPress} style={[styles.item]}>
@@ -13,11 +16,12 @@ const Item = ({item, onPress, style}) => (
 function Home({navigation}) {
   const [selectedId, setSelectedId] = useState(null);
   const {user} = useUser();
-  const {getProduct, product, productLoading} = useProduct();
+  // const {getProduct, product, productLoading} = useProduct();
+  const {loading, data, error} = useQuery(QUERY_RATES);
 
   useEffect(() => {
-    console.log('useEffect getproduct run');
-    getProduct(user.token);
+    console.log(data);
+    // getProduct(user.token);
   }, []);
   const renderItem = ({item}) => {
     return <Item item={item} onPress={() => console.log('clicked')} />;
@@ -25,7 +29,9 @@ function Home({navigation}) {
 
   return (
     <View style={{backgroundColor: '#f5f5f5', flex: 1}}>
-      {productLoading ? (
+      <Text>Data</Text>
+      
+      {/* {productLoading ? (
         <LoadingIndicator />
       ) : (
         <View>
@@ -36,7 +42,7 @@ function Home({navigation}) {
             extraData={selectedId}
           />
         </View>
-      )}
+      )} */}
     </View>
   );
 }
@@ -60,9 +66,9 @@ const styles = StyleSheet.create({
 });
 
 const Master = () => (
-  <ProductProvider>
+  <GraphProvider>
     <Home />
-  </ProductProvider>
+  </GraphProvider>
 );
 
 export default Master;
