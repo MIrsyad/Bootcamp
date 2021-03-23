@@ -44,7 +44,7 @@ export default function SignUp({navigation, route}) {
       <View style={style.loginButton}>
         <LoginButton
           onpress={async () => {
-            await login(username, textPassword);
+            await login('irsyad', 'irsyad');
           }}
           btnName="Log In"
         />

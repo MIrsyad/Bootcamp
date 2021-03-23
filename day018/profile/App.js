@@ -16,17 +16,6 @@ import {View} from 'react-native';
 
 // run/execute the query
 
-const callRates = async () =>
-  client
-    .query({
-      query: QUERY_RATES,
-    })
-    .then((result) => console.log({result}))
-    .catch((e) => console.log({e}))
-    .finnaly(() => {
-      console.log('done');
-    });
-
 // 5 . bungkus provider
 // const App = () => {
 //   useEffect(() => {

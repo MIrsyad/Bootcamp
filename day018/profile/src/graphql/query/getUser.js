@@ -1,18 +1,46 @@
 import {gql} from '@apollo/client';
-const QUERY_RATES = gql`
+
+// get user by id
+const query_user = gql`
   query MyQuery {
-    Users {
+    Users(where: {user_id: {_eq: 1}}) {
       user_id
       email
       name
+      password
       Tasks {
-        task_id
         description
+        status
+        task_id
       }
     }
   }
 `;
 
-export {QUERY_RATES};
+const add_todo = gql`
+  mutation($desc: String!) {
+    insert_Tasks_one(object: {description: $desc, id: 1}) {
+      description
+      id
+      status
+      task_id
+    }
+  }
+`;
+
+const update_todo = gql`
+  mutation($desc: String!) {
+    update_Tasks_by_pk(
+      pk_columns: {task_id: 9}
+      _set: {description: $desc}
+    ) {
+      description
+      id
+      status
+      task_id
+    }
+  }
+`;
+export {query_user, add_todo, update_todo};
 
 export default {};

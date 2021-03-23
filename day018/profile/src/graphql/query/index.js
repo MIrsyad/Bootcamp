@@ -1,0 +1,1 @@
+export {default as query_user} from './getUser';

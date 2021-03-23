@@ -1,7 +1,14 @@
 import React from 'react';
-import {ApolloClient, ApolloProvider, InMemoryCache} from '@apollo/client';
+import {
+  ApolloClient,
+  ApolloProvider,
+  HttpLink,
+  InMemoryCache,
+} from '@apollo/client';
 const client = new ApolloClient({
-  uri: 'http://localhost:8080/v1/graphql',
+  link: new HttpLink({
+    uri: 'http://172.18.0.1:8080/v1/graphql',
+  }),
   cache: new InMemoryCache(),
 });
 
