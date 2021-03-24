@@ -1,7 +1,7 @@
-import React from 'react';
-import {View, Text} from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {View, Text, ScrollView, FlatList} from 'react-native';
 import {LoncengLogo, Coolkidsdiscussion, CoolKidsAlone} from '@components/Svg';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {Colors} from '@components/Colors';
 import {
   CustomInput,
@@ -9,16 +9,48 @@ import {
   TagContainer,
   Card,
 } from '@components/Reusable';
+import {getProduct} from '../redux/product/action';
+
+const Item = ({item}) => (
+  // <TouchableOpacity onPress={onPress} style={[styles.item, style]}>
+  //   <Text style={styles.title}>{item.title}</Text>
+  // </TouchableOpacity>
+  <Card
+    price={item.price}
+    xmlFile={Coolkidsdiscussion}
+    duration="3h 30min"
+    title={item.name}
+    subtitle="Advanced mobile interface design"
+  />
+);
 
 export default function Home({navigation}) {
-  const {data, isLogin, loading} = useSelector(state => {
+  const [selectedId, setSelectedId] = useState(null);
+  const {product, loading, data} = useSelector(state => {
     return {
       data: state.global.data,
-      isLogin: state.global.isLogin,
-      loading: state.global.loading,
+      product: state.product.product,
+      loading: state.product.loading,
     };
   });
+
+  const dispatch = useDispatch();
   const user = data.data;
+
+  useEffect(() => {
+    dispatch(getProduct(data.data.token));
+    console.log('use effect run',product);
+  }, []);
+
+  const renderItem = ({item}) => {
+    return (
+      <Item
+        item={item}
+        // onPress={() => setSelectedId(item.id)}
+        // style={{ backgroundColor }}
+      />
+    );
+  };
 
   return (
     <View style={{flex: 1}}>
@@ -36,7 +68,14 @@ export default function Home({navigation}) {
         <TagContainer text="#Swift" />
         <TagContainer text="#UI" />
       </View>
-      <View style={{flex: 1, margin: 16}}>
+      <FlatList
+        style={{marginHorizontal: 16}}
+        data={product}
+        renderItem={renderItem}
+        keyExtractor={item => item.id}
+        extraData={selectedId}
+      />
+      {/* <ScrollView style={{flex: 1, margin: 16}}>
         <Card
           price="$50"
           xmlFile={Coolkidsdiscussion}
@@ -52,7 +91,7 @@ export default function Home({navigation}) {
           title="UI"
           subtitle="Advanced mobile interface design"
         />
-      </View>
+      </ScrollView> */}
     </View>
   );
 }
