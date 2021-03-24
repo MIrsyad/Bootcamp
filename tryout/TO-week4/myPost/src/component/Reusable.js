@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, StatusBar} from 'react-native';
+import {View, Text, StatusBar, TextInput} from 'react-native';
 import {StyleSheet, TouchableOpacity} from 'react-native';
 import {SvgXml} from 'react-native-svg';
 import {Colors} from '@components/Colors';
@@ -23,10 +23,23 @@ const Header = props => {
   );
 };
 
+const CustomTextBtn = props => {
+  return (
+    <Text style={styles.customTextbtn} onPress={() => console.log('clicked')}>
+      {props.text}
+    </Text>
+  );
+};
+
 const SvgImageLoader = props => {
+  return <SvgXml xml={props.xmlFile} />;
+};
+
+const TextContent = props => {
   return (
     <View>
-      <SvgXml xml={props.xmlFile} />
+      <Text style={styles.titleStyle}>{props.title}</Text>
+      <Text style={styles.subtitleStyle}>{props.subtitle}</Text>
     </View>
   );
 };
@@ -37,14 +50,20 @@ const CustomStatusBar = props => {
   );
 };
 
+const CustomInput = props => {
+  return (
+    <TextInput
+      style={styles.customInputContainer}
+      placeholder={props.placeholder}></TextInput>
+  );
+};
 const styles = StyleSheet.create({
   buttonContainer: {
     backgroundColor: Colors.primaryColor,
-    borderRadius: 10,
-    marginHorizontal: 16,
-    marginVertical: 32,
+    borderRadius: 15,
+    margin: 8,
     height: 56,
-    width: 311,
+    width: 343,
     alignSelf: 'center',
     justifyContent: 'center',
     alignItems: 'center',
@@ -57,6 +76,45 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
   },
+  titleStyle: {
+    fontSize: 24,
+    marginTop: 8,
+    alignSelf: 'center',
+    textAlign: 'center',
+    paddingHorizontal: 100,
+  },
+  subtitleStyle: {
+    paddingBottom: 15,
+    fontSize: 14,
+    alignSelf: 'center',
+    textAlign: 'center',
+    paddingHorizontal: 50,
+    color: '#78746D',
+    marginVertical: 8,
+  },
+  customInputContainer: {
+    marginVertical: 8,
+    borderRadius: 10,
+    borderColor: '#BEBAB3',
+    borderWidth: 2,
+    padding: 10,
+    alignSelf: 'center',
+    width: 343,
+  },
+  customTextbtn: {
+    alignSelf: 'center',
+    fontSize: 14,
+    textAlign: 'center',
+    marginVertical: 8,
+  },
 });
 
-export {CustomButton, Header, SvgImageLoader, CustomStatusBar};
+export {
+  CustomButton,
+  Header,
+  SvgImageLoader,
+  CustomStatusBar,
+  TextContent,
+  CustomInput,
+  CustomTextBtn,
+};

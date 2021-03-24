@@ -6,11 +6,6 @@ import {xmlSplashScreen} from '@components/Svg';
 export default function splashscreen() {
   return (
     <View style={styles.centerContainer}>
-      {/* <StatusBar
-        barStyle="dark-content"
-        backgroundColor="white"
-        hidden={false}
-      /> */}
       <SvgImageLoader xmlFile={xmlSplashScreen} />
       <Text style={styles.text}>MyPost</Text>
     </View>
