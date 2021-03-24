@@ -10,7 +10,7 @@ import {
   pagination3,
 } from '@components/Svg';
 
-export default function Intro() {
+export default function Intro({navigation}) {
   const [svgCount, setSvgCount] = useState(1);
 
   function renderSVG() {
@@ -95,7 +95,7 @@ export default function Intro() {
           <View style={{flex: 1, justifyContent: 'flex-end', marginBottom: 42}}>
             <CustomButton
               onPress={() => {
-                console.log(svgCount);
+                navigation.navigate('LogInScreen')
               }}
               text="Let's Start"
             />
