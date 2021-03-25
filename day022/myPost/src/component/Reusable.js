@@ -9,7 +9,12 @@ import {
 import {StyleSheet, TouchableOpacity} from 'react-native';
 import {SvgXml} from 'react-native-svg';
 import {Colors} from '@components/Colors';
-import {xmlSplashScreen,CoolKidsBust, BackLogo} from '@components/Svg';
+import {
+  xmlSplashScreen,
+  CoolKidsBust,
+  PlayIcon,
+  BackLogo,
+} from '@components/Svg';
 
 const CustomButton = props => {
   return (
@@ -23,21 +28,11 @@ const CustomButton = props => {
 
 const Header = props => {
   return (
-    <View
-      style={{
-        flexDirection: 'row',
-        alignItems: 'center',
-      }}>
-      <BackButton  />
-      <View
-        style={{
-          // backgroundColor:'red',
-          flex:1,
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}>
-        <Text style={{fontSize: 24, fontWeight: '500'}}>{props.title}</Text>
-      </View>
+    <View style={{justifyContent: 'center', height: 48, marginBottom: 8}}>
+      <BackButton onPress={props.onPress} styling={{position: 'absolute'}} />
+      <Text style={{alignSelf: 'center', fontSize: 24, fontWeight: '500'}}>
+        {props.title}
+      </Text>
     </View>
   );
 };
@@ -130,14 +125,30 @@ const TagContainer = props => {
 const CourseDetail = props => {
   return (
     <View>
-      <View>
-        <Text>Author: {props.author}</Text>
+      <View style={{alignItems: 'center', marginBottom: 16}}>
+        <Text>Owner: {props.author}</Text>
         <Text>{props.date}</Text>
       </View>
-      <View style={{backgroundColor: props.bgColor}}>
+      <View
+        style={{
+          backgroundColor: props.bgColor,
+          borderRadius: 8,
+          alignItems: 'center',
+          paddingTop: 8,
+          marginVertical: 8,
+        }}>
         <SvgXml xml={CoolKidsBust} />
+        <SvgXml
+          style={{alignSelf: 'flex-end', marginRight: 3, marginBottom: 8}}
+          xml={PlayIcon}
+        />
       </View>
-      <View></View>
+      <View style={{marginVertical: 8}}>
+        <Text style={{fontWeight: '500', fontSize: 20, marginBottom: 4}}>
+          {props.title}
+        </Text>
+        <Text style={{textAlign: 'left'}}>{props.contenttext}</Text>
+      </View>
     </View>
   );
 };
@@ -194,20 +205,60 @@ const Card = props => {
   );
 };
 
+const Avatar = props => {
+  return (
+    <View style={{marginTop: 28, marginBottom: 8}}>
+      <View
+        style={{
+          alignSelf: 'center',
+          overflow: 'hidden',
+          borderRadius: 70,
+          width: 140,
+          height: 140,
+          borderColor: Colors.blueButton,
+          borderWidth: 4,
+        }}>
+        <SvgXml xml={CoolKidsBust} />
+      </View>
+    </View>
+  );
+};
+
+const CardText = props => {
+  return (
+    <View style={{marginHorizontal: 16, marginTop: 8}}>
+      <Text style={{fontWeight:'500',marginLeft:8}}>{props.title}</Text>
+      <View
+        style={{
+          borderRadius: 5,
+          borderColor: Colors.bluecontainer,
+          borderWidth: 1,
+          padding: 8,
+        }}>
+        <Text>{props.value}</Text>
+      </View>
+    </View>
+  );
+};
+
 const BackButton = props => {
   return (
     <TouchableOpacity
-      style={[{
-        marginTop: 8,
-        width: 48,
-        height: 48,
-        justifyContent: 'center',
-        alignItems: 'center',
-        marginLeft: 15,
-        borderRadius: 50,
-        borderWidth: 1,
-        borderColor: '#BEBAB3',
-      },props.styling]}>
+      onPress={props.onPress}
+      style={[
+        {
+          justifyContent: 'center',
+          alignItems: 'center',
+          marginTop: 8,
+          width: 48,
+          height: 48,
+          marginLeft: 15,
+          borderRadius: 50,
+          borderWidth: 1,
+          borderColor: '#BEBAB3',
+        },
+        props.styling,
+      ]}>
       <SvgImageLoader xmlFile={BackLogo} />
     </TouchableOpacity>
   );
@@ -304,4 +355,6 @@ export {
   Card,
   BackButton,
   CourseDetail,
+  Avatar,
+  CardText,
 };

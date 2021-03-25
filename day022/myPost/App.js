@@ -15,9 +15,10 @@ import {CustomStatusBar} from '@components/Reusable';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import store from './src/redux/store';
 import {SvgImageLoader} from '@components/Reusable';
 import {HomeLogo, ProfileLogo, LogOutLogo} from '@components/Svg';
+import {PersistGate} from 'redux-persist/integration/react';
+import {persistor, store} from './src/redux/index';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -36,16 +37,15 @@ const MyTheme = {
 
 function App() {
   const [isChecking, setIsChecking] = useState(true);
-  const {data, isLogin, loading} = useSelector(state => {
+  const {isLogin} = useSelector(state => {
     return {
-      data: state.global.data,
       isLogin: state.global.isLogin,
-      loading: state.global.loading,
     };
   });
 
   useEffect(() => {
     setTimeout(() => {
+      console.log(isLogin);
       setIsChecking(false);
     }, 2000);
   }, []);
@@ -108,7 +108,9 @@ function App() {
 const master = () => {
   return (
     <Provider store={store}>
-      <App />
+      <PersistGate persistor={persistor}>
+        <App />
+      </PersistGate>
     </Provider>
   );
 };

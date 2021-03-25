@@ -39,7 +39,10 @@ export default function Home({navigation}) {
     <Card
       onPress={() => {
         console.log('clicked item id', item.id);
-        navigation.navigate('ProductDetailScreen',product.find(x=>x.id==item.id));
+        navigation.navigate(
+          'ProductDetailScreen',
+          product.find(x => x.id == item.id),
+        );
       }}
       price={item.price}
       xmlFile={Coolkidsdiscussion}
