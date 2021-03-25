@@ -9,7 +9,7 @@ import {
 import {StyleSheet, TouchableOpacity} from 'react-native';
 import {SvgXml} from 'react-native-svg';
 import {Colors} from '@components/Colors';
-import {xmlSplashScreen, BackLogo} from '@components/Svg';
+import {xmlSplashScreen,CoolKidsBust, BackLogo} from '@components/Svg';
 
 const CustomButton = props => {
   return (
@@ -23,8 +23,21 @@ const CustomButton = props => {
 
 const Header = props => {
   return (
-    <View>
-      <Text>ini header</Text>
+    <View
+      style={{
+        flexDirection: 'row',
+        alignItems: 'center',
+      }}>
+      <BackButton  />
+      <View
+        style={{
+          // backgroundColor:'red',
+          flex:1,
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}>
+        <Text style={{fontSize: 24, fontWeight: '500'}}>{props.title}</Text>
+      </View>
     </View>
   );
 };
@@ -38,7 +51,7 @@ const CustomTextBtn = props => {
 };
 
 const SvgImageLoader = props => {
-  return <SvgXml  xml={props.xmlFile} />;
+  return <SvgXml xml={props.xmlFile} />;
 };
 
 const TextContent = props => {
@@ -114,6 +127,21 @@ const TagContainer = props => {
   );
 };
 
+const CourseDetail = props => {
+  return (
+    <View>
+      <View>
+        <Text>Author: {props.author}</Text>
+        <Text>{props.date}</Text>
+      </View>
+      <View style={{backgroundColor: props.bgColor}}>
+        <SvgXml xml={CoolKidsBust} />
+      </View>
+      <View></View>
+    </View>
+  );
+};
+
 const Card = props => {
   Card.defaultProps = {
     color: '#F8F2EE',
@@ -169,7 +197,7 @@ const Card = props => {
 const BackButton = props => {
   return (
     <TouchableOpacity
-      style={{
+      style={[{
         marginTop: 8,
         width: 48,
         height: 48,
@@ -179,7 +207,7 @@ const BackButton = props => {
         borderRadius: 50,
         borderWidth: 1,
         borderColor: '#BEBAB3',
-      }}>
+      },props.styling]}>
       <SvgImageLoader xmlFile={BackLogo} />
     </TouchableOpacity>
   );
@@ -275,4 +303,5 @@ export {
   TagContainer,
   Card,
   BackButton,
+  CourseDetail,
 };

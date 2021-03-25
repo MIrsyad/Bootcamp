@@ -11,19 +11,6 @@ import {
 } from '@components/Reusable';
 import {getProduct} from '../redux/product/action';
 
-const Item = ({item}) => (
-  // <TouchableOpacity onPress={onPress} style={[styles.item, style]}>
-  //   <Text style={styles.title}>{item.title}</Text>
-  // </TouchableOpacity>
-  <Card
-    price={item.price}
-    xmlFile={Coolkidsdiscussion}
-    duration="3h 30min"
-    title={item.name}
-    subtitle="Advanced mobile interface design"
-  />
-);
-
 export default function Home({navigation}) {
   const [selectedId, setSelectedId] = useState(null);
   const {product, loading, data} = useSelector(state => {
@@ -47,6 +34,20 @@ export default function Home({navigation}) {
       />
     );
   };
+
+  const Item = ({item}) => (
+    <Card
+      onPress={() => {
+        console.log('clicked item id', item.id);
+        navigation.navigate('ProductDetailScreen',product.find(x=>x.id==item.id));
+      }}
+      price={item.price}
+      xmlFile={Coolkidsdiscussion}
+      duration="3h 30min"
+      title={item.name}
+      subtitle="Advanced mobile interface design"
+    />
+  );
 
   return (
     <View style={{flex: 1}}>

@@ -55,12 +55,11 @@ function App() {
       <Tab.Navigator
         screenOptions={({route}) => ({
           tabBarIcon: ({focused, color, size}) => {
-
             if (route.name == 'HomeScreen') {
-              return <SvgImageLoader xmlFile={HomeLogo}/>;
+              return <SvgImageLoader xmlFile={HomeLogo} />;
             } else if (route.name == 'ProfileScreen') {
               return <SvgImageLoader xmlFile={ProfileLogo} />;
-            }else{
+            } else {
               return <SvgImageLoader xmlFile={LogOutLogo} />;
             }
           },
